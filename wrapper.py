@@ -223,7 +223,7 @@ while not os.path.exists(outfiles_dir+'/Output.txt'):
     time.sleep(sleep_step)
 while lines<3:
     lines_str = os.popen('wc -l '+outfiles_dir+'/Output.txt').read()
-    lines = int(float(lines_str.partition(' ')[0]))
+    lines = int(lines_str.partition(' ')[0])
     time.sleep(sleep_step)
 t2 = time.perf_counter()
 append2file(wrapper_log, 'Estimated time needed: {:.2f} s'.format((t2-t1)/lines*Nmodels))
