@@ -1,4 +1,4 @@
-function LevelCurves(x_init, y_init, start_direction, N, ShowTestFig, DEBUG)
+function LevelCurves(x_init, y_init, start_direction, dx, dy, N)
 %
 % Name convention for for vertices and sides. The starting direction is 
 % perpendicular to the sides and pointing outside the square (e.g.
@@ -15,6 +15,10 @@ function LevelCurves(x_init, y_init, start_direction, N, ShowTestFig, DEBUG)
 %                 4
 %
 %
+
+DEBUG       = 0;
+ShowTestFig = 1;
+
 xmin = -1;
 xmax =  1;
 nx   = 500;
@@ -89,9 +93,6 @@ yp = y_init;
 M  = func(xp,yp);
 fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M, xp, yp)
 
-dx = 0.015;
-dy = 0.015;
-
 % find second point 
 switch start_direction
     case 1
@@ -143,15 +144,6 @@ end
 for i=1:N
     square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
     side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
-    if side_number==1 || side_number==3
-        a         = square(1,2);
-        b         = square(2,2);
-        isyaxis   = 1;
-    else
-        a         = square(1,1);
-        b         = square(4,1); 
-        isyaxis   = 0;
-    end
     x1 = square(1,1);
     x2 = square(4,1); 
     y1 = square(1,2);
