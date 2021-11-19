@@ -1,6 +1,20 @@
-%function LevelCurves(DEBUG, k, x0, y0)
 function LevelCurves(x_init, y_init, start_direction, N, ShowTestFig, DEBUG)
-
+%
+% Name convention for for vertices and sides. The starting direction is 
+% perpendicular to the sides and pointing outside the square (e.g.
+% start_direction=3 means --->, start_direction=1 means <---).
+% 
+%                 2
+%         2---------------3
+%         |               | 
+%         |               |
+%       1 |               | 3
+%         |               |
+%         |               |
+%         1---------------4
+%                 4
+%
+%
 xmin = -1;
 xmax =  1;
 nx   = 500;
@@ -70,26 +84,16 @@ end
 
 tic 
 
-points = zeros(N+2,2);
-% initial point 
-
-%{
-xp  = -1;      % previous point
-yp  = 0.08216;
-xsc = -0.9599; % center of square
-ysc = 0.08617;
-M = func(xsc,ysc);
-%}
-
 xp = x_init;
 yp = y_init;
 M  = func(xp,yp);
+fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M, xp, yp)
 
 dx = 0.015;
 dy = 0.015;
 
 % find second point 
-switch start_direction % pointing outside the square
+switch start_direction
     case 1
         a       = yp-dy;
         b       = yp+dy;
@@ -123,11 +127,11 @@ else
     ysc = c;
 end
 
-
-% squares method
+points      = zeros(N+2,2);
 points(1,:) = [xp, yp ];
 points(2,:) = [xsc,ysc];
 
+% squares method
 if ShowTestFig
     figure
     contour(x,y,z, 50)
@@ -152,10 +156,7 @@ for i=1:N
     x2 = square(4,1); 
     y1 = square(1,2);
     y2 = square(2,2);
-    not_found = 0;
     switch side_number
-        case 0
-            not_found = 1;
         case 1
             a       = y1;
             b       = y2;
@@ -176,28 +177,27 @@ for i=1:N
             b       = x2;
             c       = y1;
             isyaxis = 0;
+        otherwise 
+            error('Side of the square not found! Try to change the initial direction')
     end
         
-    if not_found
-        error('problem')
+    xp = xsc;
+    yp = ysc;
+    if isyaxis
+        f   = @(y)(func(c,y)-M);
+        xsc = c;
+        ysc = fzero(f, (a+b)/2);
     else
-        xp = xsc;
-        yp = ysc;
-        if isyaxis
-            f   = @(y)(func(c,y)-M);
-            xsc = c;
-            ysc = fzero(f, (a+b)/2);
-        else
-            f   = @(x)(func(x,c)-M);
-            xsc = fzero(f, (a+b)/2);
-            ysc = c;
-        end
+        f   = @(x)(func(x,c)-M);
+        xsc = fzero(f, (a+b)/2);
+        ysc = c;
     end
     
     points(i+2,:) = [xsc, ysc];
     
     if ShowTestFig
         scatter(xsc,ysc, 'x', 'b')
+        %scatter(square(:,1), square(:,2), 'x', 'MarkerEdgeColor', 'r')
         xlim([xmin xmax])
         ylim([ymin ymax])
         drawnow
@@ -314,4 +314,6 @@ elseif logic_vec(1) && logic_vec(4)
         side_number = 4;
     end
 end
+%disp(logic_vec)
+%disp(square)
 return
