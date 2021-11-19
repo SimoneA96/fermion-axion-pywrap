@@ -135,7 +135,7 @@ if input_dict['give_axion_exp']:
 # create log file and write input used
 #--------------------------------------------------------------
 outfiles_dir = out_dir+out_subdir_name
-ltime=time.strftime("h%Hm%Ms%S", time.localtime())
+ltime=time.strftime("%H-%M-%S", time.localtime())
 wrapper_log  = 'log_wrappy_'+ltime+'.txt'
 dashes       = '--------------------------------------------------'
 octothorps   = '##################################################'
