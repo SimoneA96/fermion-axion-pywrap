@@ -1,5 +1,5 @@
 %function LevelCurves(DEBUG, k, x0, y0)
-function LevelCurves(DEBUG,N)
+function LevelCurves(x_init, y_init, start_direction, N, ShowTestFig, DEBUG)
 
 xmin = -1;
 xmax =  1;
@@ -15,8 +15,8 @@ y1d = linspace(ymin,ymax,ny);
 z     = func(x,y);
 
 if DEBUG
-    dxs = 0.08;
-    dys = 0.08;
+    dx = 0.08;
+    dy = 0.08;
 
     xp_vec = [-0.4949, -0.798 , 0.4949,  0.2323];
     yp_vec = [-0.2323,  0.6768, 0.7172, -0.3535];
@@ -32,7 +32,7 @@ if DEBUG
         z0 = func(x0, y0);
         zp = func(xp,yp);
 
-        square = CreateSquare(x0, y0, dxs, dys, xmin, xmax, ymin, ymax);
+        square = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax);
         xs = square(:,1);
         ys = square(:,2);
         zs = func(xs,ys);
@@ -67,27 +67,77 @@ if DEBUG
         pause
     end
 end
+
+tic 
+
 points = zeros(N+2,2);
 % initial point 
+
+%{
 xp  = -1;      % previous point
 yp  = 0.08216;
 xsc = -0.9599; % center of square
 ysc = 0.08617;
-dxs = 0.03;
-dys = 0.03;
-M   = func(xp,yp);
+M = func(xsc,ysc);
+%}
+
+xp = x_init;
+yp = y_init;
+M  = func(xp,yp);
+
+dx = 0.015;
+dy = 0.015;
+
+% find second point 
+switch start_direction % pointing outside the square
+    case 1
+        a       = yp-dy;
+        b       = yp+dy;
+        c       = xp-dx/10;
+        isyaxis = 1;
+    case 2
+        a       = xp-dx;
+        b       = xp+dx;
+        c       = yp+dy/10;
+        isyaxis = 0;
+    case 3
+        a       = yp-dy;
+        b       = yp+dy;
+        c       = xp+dx/10;
+        isyaxis = 1;
+    case 4
+        a       = xp-dx;
+        b       = xp+dx;
+        c       = yp-dy/10;
+        isyaxis = 0;
+    otherwise
+        error('start_direction must be 1,2,3 or 4')
+end
+if isyaxis
+    f   = @(y)(func(c,y)-M);
+    xsc = c;
+    ysc = fzero(f, (a+b)/2);
+else
+    f   = @(x)(func(x,c)-M);
+    xsc = fzero(f, (a+b)/2);
+    ysc = c;
+end
+
+
+% squares method
 points(1,:) = [xp, yp ];
 points(2,:) = [xsc,ysc];
 
- 
-figure
-contour(x,y,z, 50)
-hold on 
-scatter(xp,  yp , 'o', 'filled', 'MarkerFaceColor', 'r')
-scatter(xsc, ysc, 'o', 'filled', 'MarkerFaceColor', 'g')
+if ShowTestFig
+    figure
+    contour(x,y,z, 50)
+    hold on 
+    scatter(xp,  yp , 'o', 'filled', 'MarkerFaceColor', 'r')
+    scatter(xsc, ysc, 'o', 'filled', 'MarkerFaceColor', 'g')
+end
 
 for i=1:N
-    square = CreateSquare(xsc, ysc, dxs, dys, xmin, xmax, ymin, ymax);
+    square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
     side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
     if side_number==1 || side_number==3
         a         = square(1,2);
@@ -146,15 +196,22 @@ for i=1:N
     
     points(i+2,:) = [xsc, ysc];
     
-    scatter(xsc,ysc, 'x', 'b')
-    xlim([-1, 0])
-    ylim([0 1])
-    pause(0.1)
+    if ShowTestFig
+        scatter(xsc,ysc, 'x', 'b')
+        xlim([xmin xmax])
+        ylim([ymin ymax])
+        drawnow
+    end
     
-    if tooclose(xsc, xmin) || tooclose(xsc, xmax) || tooclose(ysc, ymax) || tooclose(ysc,ymin)
+    if tooclose(xsc, xmin)   || tooclose(xsc, xmax) || ...
+       tooclose(ysc, ymax)   || tooclose(ysc, ymin) || ...
+      (abs(xsc-x_init)<dx && abs(ysc-y_init)<dy)
+        fprintf('Stops at %d iteration\n', i)
         break
     end
 end
+
+toc
 
 return 
 
@@ -168,15 +225,17 @@ end
 return
 
 function z = func(x,y)
-z = sin(x.*y);
+%z = sin(x.*y);
+%z = sqrt(x.^2+y.^2);
+z = sin(4*x).*cos(4*y);
 return
 
 function points = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax)
 eps = 1e-10;
-x1  = x0-dx/2;
-x2  = x0+dx/2;
-y1  = y0-dy/2;
-y2  = y0+dy/2;
+x1  = x0-dx;
+x2  = x0+dx;
+y1  = y0-dy;
+y2  = y0+dy;
 if x1<xmin
     x1 = xmin+eps;
 end
@@ -195,7 +254,6 @@ points(2,:) = [x1, y2];
 points(3,:) = [x2, y2];
 points(4,:) = [x2, y1];
 return
-
 
 function [side_number, logic_vec] = FindSquareSide(k, x0, y0, square, x_previous, y_previous)
 k1 = func(square(1,1), square(1,2));
@@ -225,9 +283,7 @@ if logic_vec(1) && logic_vec(3)
     else
         side_number = 1;
     end
-end
-
-if logic_vec(2) && logic_vec(4)
+elseif logic_vec(2) && logic_vec(4)
     if y0>y_previous
         side_number = 2;
     else
