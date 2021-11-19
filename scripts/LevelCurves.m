@@ -1,12 +1,12 @@
 %function LevelCurves(DEBUG, k, x0, y0)
-function LevelCurves(DEBUG)
+function LevelCurves(DEBUG,N)
 
 xmin = -1;
 xmax =  1;
-nx   = 100;
+nx   = 500;
 ymin = -1;
 ymax =  1;
-ny   = 100;
+ny   = 500;
 
 x1d = linspace(xmin,xmax,nx);
 y1d = linspace(ymin,ymax,ny);
@@ -67,8 +67,105 @@ if DEBUG
         pause
     end
 end
+points = zeros(N+2,2);
+% initial point 
+xp  = -1;      % previous point
+yp  = 0.08216;
+xsc = -0.9599; % center of square
+ysc = 0.08617;
+dxs = 0.03;
+dys = 0.03;
+M   = func(xp,yp);
+points(1,:) = [xp, yp ];
+points(2,:) = [xsc,ysc];
+
+ 
+figure
+contour(x,y,z, 50)
+hold on 
+scatter(xp,  yp , 'o', 'filled', 'MarkerFaceColor', 'r')
+scatter(xsc, ysc, 'o', 'filled', 'MarkerFaceColor', 'g')
+
+for i=1:N
+    square = CreateSquare(xsc, ysc, dxs, dys, xmin, xmax, ymin, ymax);
+    side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
+    if side_number==1 || side_number==3
+        a         = square(1,2);
+        b         = square(2,2);
+        isyaxis   = 1;
+    else
+        a         = square(1,1);
+        b         = square(4,1); 
+        isyaxis   = 0;
+    end
+    x1 = square(1,1);
+    x2 = square(4,1); 
+    y1 = square(1,2);
+    y2 = square(2,2);
+    not_found = 0;
+    switch side_number
+        case 0
+            not_found = 1;
+        case 1
+            a       = y1;
+            b       = y2;
+            c       = x1;
+            isyaxis = 1;
+        case 2
+            a       = x1;
+            b       = x2;
+            c       = y2;
+            isyaxis = 0;
+        case 3
+            a       = y1;
+            b       = y2;
+            c       = x2;
+            isyaxis = 1;
+        case 4
+            a       = x1;
+            b       = x2;
+            c       = y1;
+            isyaxis = 0;
+    end
+        
+    if not_found
+        error('problem')
+    else
+        xp = xsc;
+        yp = ysc;
+        if isyaxis
+            f   = @(y)(func(c,y)-M);
+            xsc = c;
+            ysc = fzero(f, (a+b)/2);
+        else
+            f   = @(x)(func(x,c)-M);
+            xsc = fzero(f, (a+b)/2);
+            ysc = c;
+        end
+    end
+    
+    points(i+2,:) = [xsc, ysc];
+    
+    scatter(xsc,ysc, 'x', 'b')
+    xlim([-1, 0])
+    ylim([0 1])
+    pause(0.1)
+    
+    if tooclose(xsc, xmin) || tooclose(xsc, xmax) || tooclose(ysc, ymax) || tooclose(ysc,ymin)
+        break
+    end
+end
 
 return 
+
+function bool = tooclose(a,b)
+eps = 1e-3;
+if abs(a-b)<eps
+    bool = 1;
+else
+    bool = 0;
+end
+return
 
 function z = func(x,y)
 z = sin(x.*y);
@@ -101,8 +198,6 @@ return
 
 
 function [side_number, logic_vec] = FindSquareSide(k, x0, y0, square, x_previous, y_previous)
-
-% find direction
 k1 = func(square(1,1), square(1,2));
 k2 = func(square(2,1), square(2,2));
 k3 = func(square(3,1), square(3,2));
@@ -120,6 +215,10 @@ for i=1:4
     end
 end
 
+if all(logic_vec==0)
+    side_number = 0;
+end
+
 if logic_vec(1) && logic_vec(3)
     if x0>x_previous
         side_number = 3;
@@ -134,38 +233,29 @@ if logic_vec(2) && logic_vec(4)
     else
         side_number = 4;
     end
-end
-
-if logic_vec(1) && logic_vec(2)
+elseif logic_vec(1) && logic_vec(2)
     if y0>y_previous
         side_number = 2;
     else
         side_number = 1;
     end
-end
-
-if logic_vec(2) && logic_vec(3)
+elseif logic_vec(2) && logic_vec(3)
     if y0>y_previous
         side_number = 2;
     else
         side_number = 3;
     end
-end
-
-if logic_vec(3) && logic_vec(4)
+elseif logic_vec(3) && logic_vec(4)
     if y0>y_previous
         side_number = 3;
     else
         side_number = 4;
     end
-end
-
-if logic_vec(1) && logic_vec(4)
+elseif logic_vec(1) && logic_vec(4)
     if y0>y_previous
         side_number = 1;
     else
         side_number = 4;
     end
 end
-
 return
