@@ -1,5 +1,11 @@
 #include "LevelCurves.h"
-
+/*
+TODO
+- remove dx,dy -> ds
+- fix problem for (xc,yc) and (xd,yd) out of boundary
+- add comments 
+- fix notation: x1/x2 used many times for different things
+*/
 
 double L2SquareDistance(double x1, double y1, double x2, double y2){
    return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2); 
@@ -272,7 +278,7 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
     for(int i=2; i<N; i++){
         if (!last_point_on_boundary){
             FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
-            
+            /* 
             if (x1_bis>xmax) {
                 x1_bis = xmax;
             } else if (x1_bis<xmin){
@@ -294,7 +300,7 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
             } else if (y2_bis<ymin){
                 y2_bis = ymin;
             }
-
+            */
             iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
         
         } else {
