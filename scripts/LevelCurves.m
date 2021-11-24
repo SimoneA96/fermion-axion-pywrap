@@ -1,5 +1,10 @@
-function LevelCurves(x_init, y_init, start_direction, dx, dy, N)
+function LevelCurves(x_init, y_init, start_direction, dx, dy, L, N, onlySquare)
 %
+% Method of perpendicular: 
+% see figure that doesn't exist
+%
+%
+% Square construction:
 % Name convention for for vertices and sides. The starting direction is 
 % perpendicular to the sides and pointing outside the square (e.g.
 % start_direction=3 means --->, start_direction=1 means <---).
@@ -15,7 +20,7 @@ function LevelCurves(x_init, y_init, start_direction, dx, dy, N)
 %                 4
 %
 %
-
+tol         = 1e-4;
 DEBUG       = 0;
 ShowTestFig = 1;
 
@@ -48,12 +53,10 @@ if DEBUG
         yp = yp_vec(i);
 
         z0 = func(x0, y0);
-        zp = func(xp,yp);
 
         square = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax);
         xs = square(:,1);
         ys = square(:,2);
-        zs = func(xs,ys);
         x1 = square(1,1);
         x2 = square(4,1); 
         y1 = square(1,2);
@@ -71,9 +74,19 @@ if DEBUG
         figure
         contour(x,y,z, 50)
         hold on 
-        scatter3(xs,ys,zs, 'x', 'MarkerEdgeColor', 'r')
-        scatter3(x0,y0,z0, 'o', 'filled', 'MarkerFaceColor', 'g')
-        scatter3(xp,yp,zp, 'o', 'filled', 'MarkerFaceColor', 'r')
+        scatter(xs,ys, 'x', 'MarkerEdgeColor', 'r')
+        scatter(x0,y0, 'o', 'filled', 'MarkerFaceColor', 'g')
+        scatter(xp,yp, 'o', 'filled', 'MarkerFaceColor', 'r')
+        
+        [xc,yc,xd,yd] = FindPointsForRootFinder(xp,yp,x0,y0,0.1);
+        xb = 2*x0-xp;
+        yb = 2*y0-yp;
+        scatter(xc,yc, 'filled', 'MarkerFaceColor', 'b')
+        scatter(xd,yd, 'filled', 'MarkerFaceColor', 'b')
+        scatter(xb,yb, 'filled', 'MarkerFaceColor', 'c')
+        plot([xp,xb], [yp,yb], 'r')
+        plot([xc,xd], [yc,yd], 'b')
+        pbaspect([1 1 1])
         disp('square:')
         disp(square)
         fprintf('a           : %f\n', a)
@@ -84,6 +97,7 @@ if DEBUG
         disp('Press Enter to go to the next point...')
         pause
     end
+    return
 end
 
 tic 
@@ -91,6 +105,8 @@ tic
 xp = x_init;
 yp = y_init;
 M  = func(xp,yp);
+root_function = @(x,y) (func(x,y)-M);
+
 fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M, xp, yp)
 
 % find second point 
@@ -98,34 +114,30 @@ switch start_direction
     case 1
         a       = yp-dy;
         b       = yp+dy;
-        c       = xp-dx/10;
+        c       = xp-dx;
         isyaxis = 1;
     case 2
         a       = xp-dx;
         b       = xp+dx;
-        c       = yp+dy/10;
+        c       = yp+dy;
         isyaxis = 0;
     case 3
         a       = yp-dy;
         b       = yp+dy;
-        c       = xp+dx/10;
+        c       = xp+dx;
         isyaxis = 1;
     case 4
         a       = xp-dx;
         b       = xp+dx;
-        c       = yp-dy/10;
+        c       = yp-dy;
         isyaxis = 0;
     otherwise
         error('start_direction must be 1,2,3 or 4')
 end
 if isyaxis
-    f   = @(y)(func(c,y)-M);
-    xsc = c;
-    ysc = fzero(f, (a+b)/2);
+    [xsc, ysc] = BisectionAlongLine(c, a, c, b, tol, root_function);
 else
-    f   = @(x)(func(x,c)-M);
-    xsc = fzero(f, (a+b)/2);
-    ysc = c;
+    [xsc, ysc] = BisectionAlongLine(a, c, b, c, tol, root_function);
 end
 
 points      = zeros(N+2,2);
@@ -137,59 +149,88 @@ if ShowTestFig
     figure
     contour(x,y,z, 50)
     hold on 
-    scatter(xp,  yp , 'o', 'filled', 'MarkerFaceColor', 'r')
-    scatter(xsc, ysc, 'o', 'filled', 'MarkerFaceColor', 'g')
+    scatter(xp,  yp, 80, 'o', 'filled', 'MarkerFaceColor', 'm')
+    scatter(xsc,ysc, 80, 'x', 'm', 'LineWidth', 2 )
 end
 
+iter = 0;
 for i=1:N
-    square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
-    side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
-    x1 = square(1,1);
-    x2 = square(4,1); 
-    y1 = square(1,2);
-    y2 = square(2,2);
-    switch side_number
-        case 1
-            a       = y1;
-            b       = y2;
-            c       = x1;
-            isyaxis = 1;
-        case 2
-            a       = x1;
-            b       = x2;
-            c       = y2;
-            isyaxis = 0;
-        case 3
-            a       = y1;
-            b       = y2;
-            c       = x2;
-            isyaxis = 1;
-        case 4
-            a       = x1;
-            b       = x2;
-            c       = y1;
-            isyaxis = 0;
-        otherwise 
-            error('Side of the square not found! Try to change the initial direction')
+    
+    if ShowTestFig
+        xb = 2*xsc-xp;
+        yb = 2*ysc-yp;
+        xp_old = xp;
+        yp_old = yp;
+        xsc_old = xsc;
+        ysc_old = ysc;
     end
-        
-    xp = xsc;
-    yp = ysc;
-    if isyaxis
-        f   = @(y)(func(c,y)-M);
-        xsc = c;
-        ysc = fzero(f, (a+b)/2);
+    
+    if ~onlySquare
+        [x1_bis,y1_bis,x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L);
+        [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
+        %fprintf('%d iterations in BisectionAlongLine\n', iter)
+    end
+    if iter>0
+        xp  = xsc;
+        yp  = ysc;
+        xsc = xsc_tmp;
+        ysc = ysc_tmp;
     else
-        f   = @(x)(func(x,c)-M);
-        xsc = fzero(f, (a+b)/2);
-        ysc = c;
+        square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
+        side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
+        x1 = square(1,1);
+        x2 = square(4,1); 
+        y1 = square(1,2);
+        y2 = square(2,2);
+        switch side_number
+            case 1
+                a       = y1;
+                b       = y2;
+                c       = x1;
+                isyaxis = 1;
+            case 2
+                a       = x1;
+                b       = x2;
+                c       = y2;
+                isyaxis = 0;
+            case 3
+                a       = y1;
+                b       = y2;
+                c       = x2;
+                isyaxis = 1;
+            case 4
+                a       = x1;
+                b       = x2;
+                c       = y1;
+                isyaxis = 0;
+            otherwise 
+                error('Side of the square not found! Try to change the initial direction')
+        end
+
+        xp = xsc;
+        yp = ysc;
+
+        if isyaxis
+            [xsc,ysc] = BisectionAlongLine(c, a, c, b, tol, root_function);
+        else
+            [xsc,ysc] = BisectionAlongLine(a, c, b, c, tol, root_function);
+        end
     end
     
     points(i+2,:) = [xsc, ysc];
     
     if ShowTestFig
-        scatter(xsc,ysc, 'x', 'b')
-        %scatter(square(:,1), square(:,2), 'x', 'MarkerEdgeColor', 'r')
+        scatter(xsc,ysc, 80, 'x', 'g', 'LineWidth', 2 )
+        if iter==0
+            scatter(xsc_old,ysc_old, 70, 'o', 'MarkerEdgeColor', 'k')
+            scatter(square(:,1), square(:,2), 'x', 'MarkerEdgeColor', 'r')
+        else
+            scatter(x1_bis,y1_bis, 'filled', 'MarkerFaceColor', 'b')
+            scatter(x2_bis,y2_bis, 'filled', 'MarkerFaceColor', 'b')
+            scatter(xb,yb, 'filled', 'MarkerFaceColor', 'c')
+            plot([xp_old,xb], [yp_old,yb], 'r')
+            plot([x1_bis,x2_bis], [y1_bis,y2_bis], 'b')
+        end
         xlim([xmin xmax])
         ylim([ymin ymax])
         drawnow
@@ -197,8 +238,8 @@ for i=1:N
     
     if tooclose(xsc, xmin)   || tooclose(xsc, xmax) || ...
        tooclose(ysc, ymax)   || tooclose(ysc, ymin) || ...
-      (abs(xsc-x_init)<dx && abs(ysc-y_init)<dy)
-        fprintf('Stops at %d iteration\n', i)
+       (abs(xsc-x_init)<dx && abs(ysc-y_init)<dy)
+        fprintf('Stopped at %d iteration\n', i)
         break
     end
 end
@@ -217,9 +258,62 @@ end
 return
 
 function z = func(x,y)
-%z = sin(x.*y);
-%z = sqrt(x.^2+y.^2);
 z = sin(4*x).*cos(4*y);
+%z = sin(x.*y);
+return
+
+function [xroot, yroot, iter] = BisectionAlongLine(x1, y1, x2, y2, tol, myfunc)
+verbose = 0;
+itermax = 100;
+tol2    = tol*tol; % avoid sqrt() in if-statement
+
+f1 = myfunc(x1,y1);
+f2 = myfunc(x2,y2);
+
+iter    = 0;
+if f1*f2>0
+    if verbose
+        fprintf('root not found! Returning (xroot,yroot)=(%f,%f)\n',x1,y1)
+    end
+    xroot = x1;
+    yroot = y1;
+    return
+end
+
+while 1
+    iter = iter + 1;
+    
+    xm = (x1+x2)/2;
+    ym = (y1+y2)/2;
+    fm = myfunc(xm,ym);
+    
+    if ((x1-x2)^2+(y1-y2)^2)<tol2 || iter>itermax
+        if iter>itermax
+            warning('reached itermax=%d!', itermax)
+        end
+        xroot = xm;
+        yroot = ym;
+        if verbose
+            fprintf('tol=%e\titer=%3d\t(%7.4f,%7.4f)\n',tol,iter,xm,ym)
+        end
+        return
+    end
+    
+    if f1*fm<0
+        x2 = xm;
+        y2 = ym;
+    else
+        if f1*fm>0
+            x1 = xm;
+            y1 = ym;
+            f1 = fm;
+        else
+            xroot = xm;
+            yroot = ym;
+            return
+        end
+    end
+end
 return
 
 function points = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax)
@@ -265,7 +359,7 @@ for i=1:4
     end
 end
 
-if all(logic_vec==0)
+if sum(logic_vec)==0
     side_number = 0;
 end
 
@@ -306,6 +400,35 @@ elseif logic_vec(1) && logic_vec(4)
         side_number = 4;
     end
 end
-%disp(logic_vec)
-%disp(square)
+return
+
+function [x1,y1,x2,y2] = FindPointsForRootFinder(xp,yp,x0,y0,L)
+if xp==x0
+    % vertical line
+    x1 = x0;
+    y1 = y0-L;
+    x2 = x0;
+    y2 = y0+L;
+else
+    % angular coeff of the line passing for (xp,yp) and (x0,y0)
+    m = (y0-yp)/(x0-xp);
+    %q = y0-m*x0;
+
+    % middle point of (x1,y1) and (x2,y2)
+    xm = 2*x0-xp;
+    ym = 2*y0-yp;
+
+    % line perpendicular to y=m*x and passing for the middle point
+    M = -1/m;
+    Q = ym - M*xm;
+    
+    % find (x1,y1) and (x2,y2)
+    a  = (1+M^2);
+    b  = 2*M*Q-2*xm-2*ym*M;
+    c  = xm^2+ym^2+Q^2-2*ym*Q-L^2;
+    x1 = (-b-sqrt(b^2-4*a*c))/(2*a);
+    y1 = M*x1+Q;
+    x2 = (-b+sqrt(b^2-4*a*c))/(2*a);
+    y2 = M*x2+Q;
+end
 return
