@@ -268,9 +268,14 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
     // Find points 
     int iter_bisec;
     int points_counter = 2;
+    int last_point_on_boundary = 0;
     for(int i=2; i<N; i++){
-        FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
-        iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
+        if (!last_point_on_boundary){
+            FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
+            iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
+        } else {
+            iter_bisec = -1;
+        }
         if (iter_bisec>=0){
             xp  = x0;
             yp  = y0;
@@ -322,11 +327,14 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
         points[i][1] = y0;
         points_counter++;
 
-        if ((x0-xmin)<dx || (xmax-x0)<dx || (ymax-y0)<dy || (y0-ymin)<dy ||
-           x0<xmin || x0>xmax || y0<ymin || y0>ymax || (fabs(x0-x_init)<=dx && fabs(y0-y_init)<=dy)){
+        if (x0<xmin || x0>xmax || y0<ymin || y0>ymax || 
+            last_point_on_boundary || (fabs(x0-x_init)<=dx && fabs(y0-y_init)<=dy)){
             printf("Stopped at %d iteration\n", i);
             break;
         }
+        
+        if ((x0-xmin)<dx || (xmax-x0)<dx || (ymax-y0)<dy || (y0-ymin)<dy)
+            last_point_on_boundary++;
     }
     return points_counter; 
 }

@@ -22,7 +22,7 @@ function LevelCurves(x_init, y_init, start_direction, dx, dy, L, N, onlySquare)
 %                 4
 %
 %
-tol         = 1e-4;
+tol         = 1e-10;
 DEBUG       = 0;
 ShowTestFig = 1;
 
@@ -156,6 +156,7 @@ if ShowTestFig
 end
 
 iter = 0;
+last_point_on_boundary = 0;
 for i=1:N
     
     if ShowTestFig
@@ -167,11 +168,16 @@ for i=1:N
         ysc_old = ysc;
     end
     
-    if ~onlySquare
+    if ~onlySquare && ~last_point_on_boundary
         [x1_bis,y1_bis,x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L);
         [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
         %fprintf('%d iterations in BisectionAlongLine\n', iter)
     end
+    
+    if last_point_on_boundary
+        iter = 0;
+    end
+    
     if iter>0
         xp  = xsc;
         yp  = ysc;
@@ -238,28 +244,20 @@ for i=1:N
         drawnow
     end
     
-    if BoundaryLimitConditions(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax) || ...
-       (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
+    if (xsc<xmin) || (xsc>xmax) || (ysc<xmin) || (ysc>ymax) || ...
+       last_point_on_boundary || (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
         fprintf('Stopped at %d iteration\n', i)
         break
+    end
+    
+    if (xsc-xmin)<dx || (xmax-xsc)<dx || (ymax-ysc)<dy || (ysc-ymin)<dy
+        last_point_on_boundary = last_point_on_boundary + 1;
     end
 end
 
 toc
 
 return 
-
-function bool = BoundaryLimitConditions(x0,y0, dx, dy, xmin, xmax, ymin, ymax)
-c(1) = (x0-xmin)<dx; 
-c(2) = (xmax-x0)<dx;
-c(3) = (ymax-y0)<dy; 
-c(4) = (y0-ymin)<dy;
-c(5) = (x0<xmin);
-c(6) = (x0>xmax);
-c(7) = (y0<xmin);
-c(8) = (y0>ymax);
-bool = sum(c);
-return
 
 function z = func(x,y)
 z = sin(4*x).*cos(4*y);
