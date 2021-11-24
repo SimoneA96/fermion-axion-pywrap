@@ -34,7 +34,7 @@ int main(int argc, char *argv[]){
     dx              = 0.03;  // used for initial step and for squares
     dy              = 0.03;
     start_direction =  3;
-    L               = 1e-2;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
+    L               = 5e-3;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = -1;
     xmax            =  1;
     ymin            = -1;
