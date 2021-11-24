@@ -4,14 +4,6 @@
 double L2SquareDistance(double x1, double y1, double x2, double y2){
    return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2); 
 }
-bool TooClose(double a, double b){
-    double eps = 1e-10;
-    if (fabs(b-a)<eps){
-        return 1;
-    } else {
-        return 0;
-    }
-}
 int BisectionForLevelCurves(double x1, double y1, double x2, double y2, double (*func)(double,double), double K, double tol, 
               double &xroot, double &yroot){
     double tol2;

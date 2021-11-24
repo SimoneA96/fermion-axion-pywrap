@@ -261,15 +261,6 @@ c(8) = (y0>ymax);
 bool = sum(c);
 return
 
-function bool = tooclose(a,b)
-eps = 1e-3;
-if abs(a-b)<eps
-    bool = 1;
-else
-    bool = 0;
-end
-return
-
 function z = func(x,y)
 z = sin(4*x).*cos(4*y);
 %z = sin(x.*y);

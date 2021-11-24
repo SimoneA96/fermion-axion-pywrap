@@ -5,7 +5,6 @@
 using namespace std;
 
 double L2SquareDistance(double,double,double,double);
-bool TooClose(double,double);
 int BisectionForLevelCurves(double x1, double y1, double x2, double y2, double (*func)(double,double), double K, double tol, 
               double &xroot, double &yroot);
 void CreateSquare(double x0, double y0, double dx, double dy, double xmin, double xmax, double ymin, double ymax, 
