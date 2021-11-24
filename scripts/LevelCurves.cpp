@@ -331,7 +331,7 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
         points_counter++;
 
         if (TooClose(x0, xmin)   || TooClose(x0, xmax) || TooClose(y0, ymax)   || TooClose(y0, ymin) ||
-           (fabs(x0-x_init)<dx && fabs(y0-y_init)<dy)){
+           x0<xmin || x0>xmax || y0<ymin || y0>ymax || (fabs(x0-x_init)<=dx && fabs(y0-y_init)<=dy)){
             printf("Stopped at %d iteration\n", i);
             break;
         }

@@ -1,5 +1,7 @@
 function LevelCurves(x_init, y_init, start_direction, dx, dy, L, N, onlySquare)
 %
+% If L==0, use L=sqrt((xp-x0)^2+(yp-y0)^2)
+%
 % Method of perpendicular: 
 % see figure that doesn't exist
 %
@@ -236,9 +238,8 @@ for i=1:N
         drawnow
     end
     
-    if tooclose(xsc, xmin)   || tooclose(xsc, xmax) || ...
-       tooclose(ysc, ymax)   || tooclose(ysc, ymin) || ...
-       (abs(xsc-x_init)<dx && abs(ysc-y_init)<dy)
+    if BoundaryLimitConditions(xsc, ysc, xmin, xmax, ymin, ymax) || ...
+       (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
         fprintf('Stopped at %d iteration\n', i)
         break
     end
@@ -247,6 +248,18 @@ end
 toc
 
 return 
+
+function bool = BoundaryLimitConditions(x0,y0, xmin, xmax, ymin, ymax)
+c(1) = tooclose(x0, xmin); 
+c(2) = tooclose(x0, xmax);
+c(3) = tooclose(y0, ymax); 
+c(4) = tooclose(y0, ymin);
+c(5) = (x0<xmin);
+c(6) = (x0>xmax);
+c(7) = (y0<xmin);
+c(8) = (y0>ymax);
+bool = sum(c);
+return
 
 function bool = tooclose(a,b)
 eps = 1e-3;
@@ -403,6 +416,9 @@ end
 return
 
 function [x1,y1,x2,y2] = FindPointsForRootFinder(xp,yp,x0,y0,L)
+if L==0
+    L = sqrt((xp-x0)^2+(yp-y0)^2);
+end
 if xp==x0
     % vertical line
     x1 = x0;
