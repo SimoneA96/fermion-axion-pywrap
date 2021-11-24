@@ -259,38 +259,33 @@ bool FindSecondPoint(double xp, double yp, double dx, double dy, int start_direc
 int FindPoints(double x_init, double y_init, double dx, double dy, double x0, double y0,
                     double xmin, double xmax, double ymin, double ymax, double L, double tol, double **points, int N,
                     double (*func)(double,double), double K){
-    double a,b,c;
-    bool isyaxis;
-
     double x1_bis, y1_bis, x2_bis, y2_bis;
     double x0_tmp, y0_tmp;
 
-    int found_root;
-
+    // variables needed for the square
     double square[4][2];
-
     double x1,y1,x2,y2;
-    
+    int side_number;
+    double a,b,c;
+    bool isyaxis;
 
     double xp, yp;
-
     xp = x_init;
     yp = y_init;
-    
-    int side_number;
+   
+    // Find points 
     int iter_bisec;
-
-    // find second point 
-    int points_counter = 2;;
+    int points_counter = 2;
     for(int i=2; i<N; i++){
         FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
         iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
-        if (iter_bisec>0){
+        if (iter_bisec>=0){
             xp  = x0;
             yp  = y0;
             x0 = x0_tmp;
             y0 = y0_tmp;
         } else {
+            printf("Using squares-method at iteration %d, (xp,yp)=(%9f,%9f)\n", i, xp, yp);
             CreateSquare(x0,y0,dx,dy,xmin,xmax,ymin,ymax,square);
             x1 = square[0][0];
             x2 = square[3][0]; 
