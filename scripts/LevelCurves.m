@@ -177,11 +177,11 @@ for i=1:N
         ysc = ysc_tmp;
     else
         square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
-        side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
         x1 = square(1,1);
         x2 = square(4,1); 
         y1 = square(1,2);
         y2 = square(2,2);
+        side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
         switch side_number
             case 1
                 a       = y1;
@@ -281,11 +281,9 @@ if f1*f2>0
 end
 
 while 1
-    iter = iter + 1;
     
     xm = (x1+x2)/2;
     ym = (y1+y2)/2;
-    fm = myfunc(xm,ym);
     
     if ((x1-x2)^2+(y1-y2)^2)<tol2 || iter>itermax
         if iter>itermax
@@ -299,19 +297,21 @@ while 1
         return
     end
     
+    iter = iter + 1;
+    
+    fm = myfunc(xm,ym);
+    
     if f1*fm<0
         x2 = xm;
         y2 = ym;
+    elseif f1*fm>0
+        x1 = xm;
+        y1 = ym;
+        f1 = fm;
     else
-        if f1*fm>0
-            x1 = xm;
-            y1 = ym;
-            f1 = fm;
-        else
-            xroot = xm;
-            yroot = ym;
-            return
-        end
+        xroot = xm;
+        yroot = ym;
+        return
     end
 end
 return
