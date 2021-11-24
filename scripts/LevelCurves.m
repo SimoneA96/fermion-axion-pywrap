@@ -238,7 +238,7 @@ for i=1:N
         drawnow
     end
     
-    if BoundaryLimitConditions(xsc, ysc, xmin, xmax, ymin, ymax) || ...
+    if BoundaryLimitConditions(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax) || ...
        (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
         fprintf('Stopped at %d iteration\n', i)
         break
@@ -249,11 +249,11 @@ toc
 
 return 
 
-function bool = BoundaryLimitConditions(x0,y0, xmin, xmax, ymin, ymax)
-c(1) = tooclose(x0, xmin); 
-c(2) = tooclose(x0, xmax);
-c(3) = tooclose(y0, ymax); 
-c(4) = tooclose(y0, ymin);
+function bool = BoundaryLimitConditions(x0,y0, dx, dy, xmin, xmax, ymin, ymax)
+c(1) = (x0-xmin)<dx; 
+c(2) = (xmax-x0)<dx;
+c(3) = (ymax-y0)<dy; 
+c(4) = (y0-ymin)<dy;
 c(5) = (x0<xmin);
 c(6) = (x0>xmax);
 c(7) = (y0<xmin);
