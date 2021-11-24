@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
     ymax            =  1;
     tol             = 1e-10; // tolerance in bisection
     maxpoints       = 100;   // maximum number of points for the level curve 
-    
+
     // Find the level curve and prin the ouput on "output.txt"
     FindLevelCurve(x_init, y_init, dx, dy, start_direction, L, tol, MyFunction, xmin, xmax, ymin, ymax, fname, maxpoints);
     

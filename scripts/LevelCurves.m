@@ -170,6 +170,29 @@ for i=1:N
     
     if ~onlySquare && ~last_point_on_boundary
         [x1_bis,y1_bis,x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L);
+        
+        if x1_bis>xmax
+            x1_bis = xmax;
+        elseif x1_bis<xmin
+            x1_bis = xmin;
+        end
+        if y1_bis>ymax
+            y1_bis = ymax;
+        elseif y1_bis<ymin
+            y1_bis = ymin;
+        end
+        
+        if x2_bis>xmax
+            x2_bis = xmax;
+        elseif x2_bis<xmin
+            x2_bis = xmin;
+        end
+        if y2_bis>ymax
+            y2_bis = ymax;
+        elseif y2_bis<ymin
+            y2_bis = ymin;
+        end
+        
         [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
         %fprintf('%d iterations in BisectionAlongLine\n', iter)
     end

@@ -272,7 +272,31 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
     for(int i=2; i<N; i++){
         if (!last_point_on_boundary){
             FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
+            
+            if (x1_bis>xmax) {
+                x1_bis = xmax;
+            } else if (x1_bis<xmin){
+                x1_bis = xmin;
+            }
+            if (y1_bis>ymax){
+                y1_bis = ymax;
+            } else if (y1_bis<ymin){
+                y1_bis = ymin;
+            }
+            
+            if (x2_bis>xmax) {
+                x2_bis = xmax;
+            } else if (x2_bis<xmin){
+                x2_bis = xmin;
+            }
+            if (y2_bis>ymax){
+                y2_bis = ymax;
+            } else if (y2_bis<ymin){
+                y2_bis = ymin;
+            }
+
             iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
+        
         } else {
             iter_bisec = -1;
         }
