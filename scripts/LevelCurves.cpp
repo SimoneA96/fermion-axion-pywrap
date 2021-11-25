@@ -1,7 +1,7 @@
 #include "LevelCurves.h"
 /*
 TODO
-- remove dx,dy -> ds
+- remove ds,ds -> ds
 - fix problem for (xc,yc) and (xd,yd) out of boundary
 - add comments 
 - fix notation: x1/x2 used many times for different things
@@ -61,14 +61,14 @@ int BisectionForLevelCurves(double x1, double y1, double x2, double y2, double (
     }
 }
 
-void CreateSquare(double x0, double y0, double dx, double dy, double xmin, double xmax, double ymin, double ymax, 
+void CreateSquare(double x0, double y0, double ds, double xmin, double xmax, double ymin, double ymax, 
                   double square[][2]){
     double eps = 1e-10;
     double x1, x2, y1, y2;
-    x1  = x0-dx;
-    x2  = x0+dx;
-    y1  = y0-dy;
-    y2  = y0+dy;
+    x1  = x0-ds;
+    x2  = x0+ds;
+    y1  = y0-ds;
+    y2  = y0+ds;
     if (x1<xmin){
         x1 = xmin+eps;
     }
@@ -216,31 +216,31 @@ void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, doub
     return;
 }
 
-bool FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
+bool FindSecondPoint(double xp, double yp, double ds, int start_direction, 
                      double (*func)(double,double), double K, double tol, double &x0, double &y0){
     printf("Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n", K, xp, yp);
     double a,b,c;
     bool isyaxis;
     // find second point 
     if (start_direction==1) {
-        a       = yp-dy;
-        b       = yp+dy;
-        c       = xp-dx;
+        a       = yp-ds;
+        b       = yp+ds;
+        c       = xp-ds;
         isyaxis = 1;
     } else if (start_direction==2){
-        a       = xp-dx;
-        b       = xp+dx;
-        c       = yp+dy;
+        a       = xp-ds;
+        b       = xp+ds;
+        c       = yp+ds;
         isyaxis = 0;
     } else if (start_direction==3){
-        a       = yp-dy;
-        b       = yp+dy;
-        c       = xp+dx;
+        a       = yp-ds;
+        b       = yp+ds;
+        c       = xp+ds;
         isyaxis = 1;
     } else if (start_direction==4){
-        a       = xp-dx;
-        b       = xp+dx;
-        c       = yp-dy;
+        a       = xp-ds;
+        b       = xp+ds;
+        c       = yp-ds;
         isyaxis = 0;
     } else {
         printf("start_direction must be 1,2,3 or 4");
@@ -254,7 +254,7 @@ bool FindSecondPoint(double xp, double yp, double dx, double dy, int start_direc
     }
 }
 
-int FindPoints(double x_init, double y_init, double dx, double dy, double x0, double y0,
+int FindPoints(double x_init, double y_init, double ds, double x0, double y0,
                     double xmin, double xmax, double ymin, double ymax, double L, double tol, double **points, int N,
                     double (*func)(double,double), double K){
     double x1_bis, y1_bis, x2_bis, y2_bis;
@@ -278,29 +278,6 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
     for(int i=2; i<N; i++){
         if (!last_point_on_boundary){
             FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
-            /* 
-            if (x1_bis>xmax) {
-                x1_bis = xmax;
-            } else if (x1_bis<xmin){
-                x1_bis = xmin;
-            }
-            if (y1_bis>ymax){
-                y1_bis = ymax;
-            } else if (y1_bis<ymin){
-                y1_bis = ymin;
-            }
-            
-            if (x2_bis>xmax) {
-                x2_bis = xmax;
-            } else if (x2_bis<xmin){
-                x2_bis = xmin;
-            }
-            if (y2_bis>ymax){
-                y2_bis = ymax;
-            } else if (y2_bis<ymin){
-                y2_bis = ymin;
-            }
-            */
             iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
         
         } else {
@@ -313,7 +290,7 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
             y0 = y0_tmp;
         } else {
             printf("Using squares-method at iteration %d, (xp,yp)=(%9f,%9f)\n", i, xp, yp);
-            CreateSquare(x0,y0,dx,dy,xmin,xmax,ymin,ymax,square);
+            CreateSquare(x0,y0,ds,xmin,xmax,ymin,ymax,square);
             x1 = square[0][0];
             x2 = square[3][0]; 
             y1 = square[0][1];
@@ -358,24 +335,24 @@ int FindPoints(double x_init, double y_init, double dx, double dy, double x0, do
         points_counter++;
 
         if (x0<xmin || x0>xmax || y0<ymin || y0>ymax || 
-            last_point_on_boundary || (fabs(x0-x_init)<=dx && fabs(y0-y_init)<=dy)){
+            last_point_on_boundary || (fabs(x0-x_init)<=ds && fabs(y0-y_init)<=ds)){
             printf("Stopped at %d iteration\n", i);
             break;
         }
         
-        if ((x0-xmin)<dx || (xmax-x0)<dx || (ymax-y0)<dy || (y0-ymin)<dy)
+        if ((x0-xmin)<ds || (xmax-x0)<ds || (ymax-y0)<ds || (y0-ymin)<ds)
             last_point_on_boundary++;
     }
     return points_counter; 
 }
 
-void FindLevelCurve(double x_init, double y_init, double dx, double dy, int start_direction, double L, double tol, double
+void FindLevelCurve(double x_init, double y_init, double ds, int start_direction, double L, double tol, double
                    (*func)(double, double), double xmin, double xmax, double ymin, double ymax, 
                    char *fname, int maxpoints){
     
     double x0, y0,K;
     K = func(x_init,y_init);
-    FindSecondPoint(x_init, y_init, dx, dy, start_direction, func, K, tol, x0, y0);
+    FindSecondPoint(x_init, y_init, ds, start_direction, func, K, tol, x0, y0);
     
     // allocate points
     double **points; 
@@ -389,7 +366,7 @@ void FindLevelCurve(double x_init, double y_init, double dx, double dy, int star
     points[1][1] = y0;
     
     int iter;
-    iter = FindPoints(x_init, y_init, dx, dy, x0, y0, xmin, xmax, ymin, ymax, L, tol, points, maxpoints, func, K);
+    iter = FindPoints(x_init, y_init, ds, x0, y0, xmin, xmax, ymin, ymax, L, tol, points, maxpoints, func, K);
     
     FILE *fp;
     fp=fopen(fname,"w");

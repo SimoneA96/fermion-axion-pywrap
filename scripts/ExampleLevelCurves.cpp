@@ -25,7 +25,7 @@ double MyFunction(double, double);
 
 int main(int argc, char *argv[]){
     double xmin, xmax, ymin, ymax;
-    double x_init, y_init, dx, dy,  start_direction, L, tol;
+    double x_init, y_init, ds,  start_direction, L, tol;
     int maxpoints, verbose;
     char fname[]="out_example.txt";
     
@@ -35,8 +35,7 @@ int main(int argc, char *argv[]){
     x_init          = 0.3; // closed curve
     y_init          = 0.3;
     start_direction =  3;
-    dx              = 0.03;  // used for initial step and for squares
-    dy              = 0.03;
+    ds              = 0.03;  // used for initial step and for squares
     L               = 5e-3;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = -1;
     xmax            =  1;
@@ -46,7 +45,7 @@ int main(int argc, char *argv[]){
     maxpoints       = 100;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"
-    FindLevelCurve(x_init, y_init, dx, dy, start_direction, L, tol, MyFunction, xmin, xmax, ymin, ymax, fname, maxpoints);
+    FindLevelCurve(x_init, y_init, ds, start_direction, L, tol, MyFunction, xmin, xmax, ymin, ymax, fname, maxpoints);
     
     return 0;
 }

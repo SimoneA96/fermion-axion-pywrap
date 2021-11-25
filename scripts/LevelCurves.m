@@ -1,4 +1,4 @@
-function LevelCurves(x_init, y_init, start_direction, dx, dy, L, N, onlySquare)
+function LevelCurves(x_init, y_init, start_direction, ds, L, N, onlySquare)
 %
 % If L==0, use L=sqrt((xp-x0)^2+(yp-y0)^2)
 %
@@ -56,7 +56,7 @@ if DEBUG
 
         z0 = func(x0, y0);
 
-        square = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax);
+        square = CreateSquare(x0, y0, ds, xmin, xmax, ymin, ymax);
         xs = square(:,1);
         ys = square(:,2);
         x1 = square(1,1);
@@ -114,24 +114,24 @@ fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M,
 % find second point 
 switch start_direction
     case 1
-        a       = yp-dy;
-        b       = yp+dy;
-        c       = xp-dx;
+        a       = yp-ds;
+        b       = yp+ds;
+        c       = xp-ds;
         isyaxis = 1;
     case 2
-        a       = xp-dx;
-        b       = xp+dx;
-        c       = yp+dy;
+        a       = xp-ds;
+        b       = xp+ds;
+        c       = yp+ds;
         isyaxis = 0;
     case 3
-        a       = yp-dy;
-        b       = yp+dy;
-        c       = xp+dx;
+        a       = yp-ds;
+        b       = yp+ds;
+        c       = xp+ds;
         isyaxis = 1;
     case 4
-        a       = xp-dx;
-        b       = xp+dx;
-        c       = yp-dy;
+        a       = xp-ds;
+        b       = xp+ds;
+        c       = yp-ds;
         isyaxis = 0;
     otherwise
         error('start_direction must be 1,2,3 or 4')
@@ -170,29 +170,6 @@ for i=1:N
     
     if ~onlySquare && ~last_point_on_boundary
         [x1_bis,y1_bis,x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L);
-        %{
-        if x1_bis>xmax
-            x1_bis = xmax;
-        elseif x1_bis<xmin
-            x1_bis = xmin;
-        end
-        if y1_bis>ymax
-            y1_bis = ymax;
-        elseif y1_bis<ymin
-            y1_bis = ymin;
-        end
-        
-        if x2_bis>xmax
-            x2_bis = xmax;
-        elseif x2_bis<xmin
-            x2_bis = xmin;
-        end
-        if y2_bis>ymax
-            y2_bis = ymax;
-        elseif y2_bis<ymin
-            y2_bis = ymin;
-        end
-        %}
         [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
         %fprintf('%d iterations in BisectionAlongLine\n', iter)
     end
@@ -207,7 +184,7 @@ for i=1:N
         xsc = xsc_tmp;
         ysc = ysc_tmp;
     else
-        square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
+        square = CreateSquare(xsc, ysc, ds, xmin, xmax, ymin, ymax);
         x1 = square(1,1);
         x2 = square(4,1); 
         y1 = square(1,2);
@@ -268,12 +245,12 @@ for i=1:N
     end
     
     if (xsc<xmin) || (xsc>xmax) || (ysc<xmin) || (ysc>ymax) || ...
-       last_point_on_boundary || (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
-        fprintf('Stopped at %d iteration\n', i)
+       last_point_on_boundary || (abs(xsc-x_init)<=ds && abs(ysc-y_init)<=ds)
+        fprintf('Stopped at %d iterations\n', i)
         break
     end
     
-    if (xsc-xmin)<dx || (xmax-xsc)<dx || (ymax-ysc)<dy || (ysc-ymin)<dy
+    if (xsc-xmin)<ds || (xmax-xsc)<ds || (ymax-ysc)<ds || (ysc-ymin)<ds
         last_point_on_boundary = last_point_on_boundary + 1;
     end
 end
@@ -341,12 +318,12 @@ while 1
 end
 return
 
-function points = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax)
+function points = CreateSquare(x0, y0, ds, xmin, xmax, ymin, ymax)
 eps = 1e-10;
-x1  = x0-dx;
-x2  = x0+dx;
-y1  = y0-dy;
-y2  = y0+dy;
+x1  = x0-ds;
+x2  = x0+ds;
+y1  = y0-ds;
+y2  = y0+ds;
 if x1<xmin
     x1 = xmin+eps;
 end
