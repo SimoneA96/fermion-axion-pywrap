@@ -157,6 +157,7 @@ end
 
 iter = 0;
 last_point_on_boundary = 0;
+boundary_iters_max = 9;
 for i=1:N
     
     if ShowTestFig
@@ -170,7 +171,38 @@ for i=1:N
     
     if ~onlySquare && ~last_point_on_boundary
         [x1_bis,y1_bis,x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L);
-        [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
+        
+        boundary_iters_max_reached = 0;
+        
+        boundary_iters=0;
+        L_tmp = L;
+        while (x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax)
+            L_tmp = L_tmp-L/10;
+            [x1_bis,y1_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L_tmp);
+            boundary_iters = boundary_iters+1;
+            if boundary_iters>boundary_iters_max
+                boundary_iters_max_reached = 1;
+                break;
+            end
+        end
+        
+        boundary_iters=0;
+        L_tmp = L;
+        while (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax)
+            L_tmp = L_tmp-L/10;
+            [~, ~, x2_bis,y2_bis] = FindPointsForRootFinder(xp,yp,xsc,ysc,L_tmp);
+            boundary_iters = boundary_iters+1;
+            if boundary_iters>boundary_iters_max
+                boundary_iters_max_reached = 1;
+                break;
+            end
+        end
+        
+        if ~boundary_iters_max_reached
+            [xsc_tmp,ysc_tmp,iter] = BisectionAlongLine(x1_bis, y1_bis, x2_bis, y2_bis, tol, root_function);
+        else
+            iter = 0;
+        end
         %fprintf('%d iterations in BisectionAlongLine\n', iter)
     end
     
@@ -233,8 +265,8 @@ for i=1:N
             scatter(xsc_old,ysc_old, 70, 'o', 'MarkerEdgeColor', 'k')
             scatter(square(:,1), square(:,2), 'x', 'MarkerEdgeColor', 'r')
         else
-            scatter(x1_bis,y1_bis, 'filled', 'MarkerFaceColor', 'b')
-            scatter(x2_bis,y2_bis, 'filled', 'MarkerFaceColor', 'b')
+            scatter(x1_bis,y1_bis, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'r')
+            scatter(x2_bis,y2_bis, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'g')
             scatter(xb,yb, 'filled', 'MarkerFaceColor', 'c')
             plot([xp_old,xb], [yp_old,yb], 'r')
             plot([x1_bis,x2_bis], [y1_bis,y2_bis], 'b')

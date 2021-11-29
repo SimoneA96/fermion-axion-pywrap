@@ -1,8 +1,6 @@
 #include "LevelCurves.h"
 /*
 TODO
-- remove ds,ds -> ds
-- fix problem for (xc,yc) and (xd,yd) out of boundary
 - add comments 
 - fix notation: x1/x2 used many times for different things
 */
@@ -275,11 +273,54 @@ int FindPoints(double x_init, double y_init, double ds, double x0, double y0,
     int iter_bisec;
     int points_counter = 2;
     int last_point_on_boundary = 0;
+    
+    // variables used for checking that the points for bisection are into the boundary
+    int boundary_iters, boundary_iters_max=9, boundary_iters_max_reached;
+    double L_tmp, puppet;
+    
     for(int i=2; i<N; i++){
         if (!last_point_on_boundary){
             FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
-            iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
-        
+           
+            boundary_iters_max_reached = 0;
+            
+            // check if (x1_bis, y1_bis) is inside the boundary, otherwise change it
+            L_tmp = L;
+            boundary_iters = 0;
+            while (x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
+                L_tmp = L_tmp-L/10;
+                FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,x1_bis,y1_bis,puppet,puppet);
+                boundary_iters++;
+                if (boundary_iters>boundary_iters_max){
+                    boundary_iters_max_reached = 1;
+                    break;
+                }
+            }
+            
+            // check if (x2_bis, y2_bis) is inside the boundary, otherwise change it
+            L_tmp = L;
+            boundary_iters = 0;
+            while (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax){
+                L_tmp = L_tmp-L/10;
+                FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,puppet,puppet,x2_bis,y2_bis);
+                boundary_iters++;
+                if (boundary_iters>boundary_iters_max){
+                    boundary_iters_max_reached = 1;
+                    break;
+                }
+            }
+           
+            if (!boundary_iters_max_reached) {
+                // just a check
+                if (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax ||
+                    x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
+                    printf("+++ Warning! Initial points for bisection outside of boundary at point #%d ++\n", i); 
+                }
+                // bisection
+                iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
+            } else {
+                iter_bisec = -1;
+            }
         } else {
             iter_bisec = -1;
         }
