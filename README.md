@@ -17,5 +17,12 @@ g++ -o example ExampleLevelCurves.cpp LevelCurves.cpp
 This will produce the file `out_example.txt` that contains a level curve.
 You can check the result against the output of Matlab script `LevelCurves.m`:
 ```bash
-LevelCurves(0.3, 0.3, 3, 0.03, 0.03, 5e-3, 200, 0)
+x0          = 0.3;
+y0          = 0.3;
+direction   = 3;
+ds          = 0.03;
+L           = 5-e3;
+maxpoints   = 200;
+onlysquares = 0;
+LevelCurves(x0, y0, direction, ds, L, maxpoints, onlysquares)
 ```

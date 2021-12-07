@@ -26,11 +26,11 @@ tol         = 1e-10;
 DEBUG       = 0;
 ShowTestFig = 1;
 
-xmin = 0-1;
-xmax = 0.008*0+1;
+xmin = -1;
+xmax =  1;
 nx   = 500;
-ymin = 0-1;
-ymax = 0.42*0+1;
+ymin = -1;
+ymax =  1;
 ny   = 500;
 
 dx = ds*(xmax-xmin);
@@ -311,12 +311,10 @@ return
 function z = func(x,y)
 z = sin(4*x).*cos(4*y);
 %z = sin(x.*y);
-
-xmin = 0-1;
-xmax = 0.008*0+1;
-ymin = 0-1;
-ymax = 0.42*0+1;
-
+xmin = -1;
+xmax =  1;
+ymin = -1;
+ymax =  1;
 if x<xmin
     error('x=%f<xmin\n',x);
 elseif x>xmax
@@ -326,7 +324,6 @@ elseif y<ymin
 elseif y>ymax
     error('y=%f>ymax\n',y);
 end
-
 return
 
 function [xroot, yroot, iter] = BisectionAlongLine(x1, y1, x2, y2, tol, myfunc)

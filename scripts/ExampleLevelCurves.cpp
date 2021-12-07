@@ -34,15 +34,15 @@ int main(int argc, char *argv[]){
     //start_direction = 1;
     x_init          = 0.3; // closed curve
     y_init          = 0.3;
-    start_direction =  3;
+    start_direction = 3;
     ds              = 0.03;  // used for initial step and for squares
     L               = 5e-3;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = -1;
-    xmax            =  1;
+    xmax            = 1;
     ymin            = -1;
-    ymax            =  1;
+    ymax            = 1;
     tol             = 1e-10; // tolerance in bisection
-    maxpoints       = 100;   // maximum number of points for the level curve 
+    maxpoints       = 10000;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"
     FindLevelCurve(x_init, y_init, ds, start_direction, L, tol, MyFunction, xmin, xmax, ymin, ymax, fname, maxpoints);

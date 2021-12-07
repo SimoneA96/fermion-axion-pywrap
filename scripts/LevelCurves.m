@@ -26,12 +26,15 @@ tol         = 1e-10;
 DEBUG       = 0;
 ShowTestFig = 1;
 
-xmin = -1;
-xmax =  1;
+xmin = 0-1;
+xmax = 0.008*0+1;
 nx   = 500;
-ymin = -1;
-ymax =  1;
+ymin = 0-1;
+ymax = 0.42*0+1;
 ny   = 500;
+
+dx = ds*(xmax-xmin);
+dy = ds*(ymax-ymin);
 
 x1d = linspace(xmin,xmax,nx);
 y1d = linspace(ymin,ymax,ny);
@@ -56,7 +59,7 @@ if DEBUG
 
         z0 = func(x0, y0);
 
-        square = CreateSquare(x0, y0, ds, xmin, xmax, ymin, ymax);
+        square = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax);
         xs = square(:,1);
         ys = square(:,2);
         x1 = square(1,1);
@@ -114,24 +117,24 @@ fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M,
 % find second point 
 switch start_direction
     case 1
-        a       = yp-ds;
-        b       = yp+ds;
-        c       = xp-ds;
+        a       = max(yp-dy,ymin);
+        b       = min(yp+dy,ymax);
+        c       = xp-dx*1.3;
         isyaxis = 1;
     case 2
-        a       = xp-ds;
-        b       = xp+ds;
-        c       = yp+ds;
+        a       = max(xp-dx,xmin);
+        b       = min(xp+dx,xmax);
+        c       = yp+dy*1.3;
         isyaxis = 0;
     case 3
-        a       = yp-ds;
-        b       = yp+ds;
-        c       = xp+ds;
+        a       = max(yp-dy,ymin);
+        b       = min(yp+dy,ymax);
+        c       = xp+dx*1.3;
         isyaxis = 1;
     case 4
-        a       = xp-ds;
-        b       = xp+ds;
-        c       = yp-ds;
+        a       = max(xp-dx,xmin);
+        b       = min(xp+dx,xmax);
+        c       = yp-dy*1.3;
         isyaxis = 0;
     otherwise
         error('start_direction must be 1,2,3 or 4')
@@ -153,6 +156,11 @@ if ShowTestFig
     hold on 
     scatter(xp,  yp, 80, 'o', 'filled', 'MarkerFaceColor', 'm')
     scatter(xsc,ysc, 80, 'x', 'm', 'LineWidth', 2 )
+    xline(ymin, 'HandleVisibility', 'off');
+    xline(ymax, 'HandleVisibility', 'off');
+    yline(xmin, 'HandleVisibility', 'off');
+    yline(xmax, 'HandleVisibility', 'off');
+
 end
 
 iter = 0;
@@ -216,12 +224,20 @@ for i=1:N
         xsc = xsc_tmp;
         ysc = ysc_tmp;
     else
-        square = CreateSquare(xsc, ysc, ds, xmin, xmax, ymin, ymax);
+        square = CreateSquare(xsc, ysc, dx, dy, xmin, xmax, ymin, ymax);
         x1 = square(1,1);
         x2 = square(4,1); 
         y1 = square(1,2);
         y2 = square(2,2);
-        side_number = FindSquareSide(M, xsc, ysc, square, xp, yp);
+        scatter(x1,y1)
+        scatter(x1,y2)
+        scatter(x2,y2)
+        scatter(x2,y1)
+        [side_number, logic_vec] = FindSquareSide(M, xsc, ysc, square, xp, yp);
+        if side_number==0
+            disp(logic_vec)
+            error('side not found!')
+        end
         switch side_number
             case 1
                 a       = y1;
@@ -277,23 +293,40 @@ for i=1:N
     end
     
     if (xsc<xmin) || (xsc>xmax) || (ysc<xmin) || (ysc>ymax) || ...
-       last_point_on_boundary || (abs(xsc-x_init)<=ds && abs(ysc-y_init)<=ds)
-        fprintf('Stopped at %d iterations\n', i)
+       last_point_on_boundary || (abs(xsc-x_init)<=dx && abs(ysc-y_init)<=dy)
+        fprintf('Stopped at %d iterations\n', i+1)
         break
     end
     
-    if (xsc-xmin)<ds || (xmax-xsc)<ds || (ymax-ysc)<ds || (ysc-ymin)<ds
+    if (xsc-xmin)<dx || (xmax-xsc)<dx || (ymax-ysc)<dy || (ysc-ymin)<dy
         last_point_on_boundary = last_point_on_boundary + 1;
     end
 end
 
-toc
+toc 
+
 
 return 
 
 function z = func(x,y)
 z = sin(4*x).*cos(4*y);
 %z = sin(x.*y);
+
+xmin = 0-1;
+xmax = 0.008*0+1;
+ymin = 0-1;
+ymax = 0.42*0+1;
+
+if x<xmin
+    error('x=%f<xmin\n',x);
+elseif x>xmax
+    error('x=%f>xmax\n',x);
+elseif y<ymin
+    error('y=%f<ymin\n',y);
+elseif y>ymax
+    error('y=%f>ymax\n',y);
+end
+
 return
 
 function [xroot, yroot, iter] = BisectionAlongLine(x1, y1, x2, y2, tol, myfunc)
@@ -350,12 +383,13 @@ while 1
 end
 return
 
-function points = CreateSquare(x0, y0, ds, xmin, xmax, ymin, ymax)
+function points = CreateSquare(x0, y0, dx, dy, xmin, xmax, ymin, ymax)
+x1  = x0-dx;
+x2  = x0+dx;
+y1  = y0-dy;
+y2  = y0+dy;
+%{
 eps = 1e-10;
-x1  = x0-ds;
-x2  = x0+ds;
-y1  = y0-ds;
-y2  = y0+ds;
 if x1<xmin
     x1 = xmin+eps;
 end
@@ -368,6 +402,11 @@ end
 if y2>ymax
     y2 = ymax-eps;
 end
+%}
+x1 = max(xmin,x1);
+x2 = min(xmax,x2);
+y1 = max(ymin,y1);
+y2 = min(ymax,y2);
 points      = zeros(4,2);
 points(1,:) = [x1, y1];
 points(2,:) = [x1, y2];
