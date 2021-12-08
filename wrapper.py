@@ -1,3 +1,44 @@
+'''
+ *  The aim of this code is to compute the equilibrium configurations
+ *  for a Fermion-Axion star system in a 2 parameters space of solutions. 
+ *  
+ *
+ *  LUNCH:
+ *     python3 wrapper.py par/axion_fa_exp_-1d7.par fa-1.7 &
+ *
+ *
+ *  OUTPUT: various txt file devided in different directories 
+ *      + the existence plot of the pure axion star to be verified with
+ *      the solutions in arXiv:1909.05515 
+ *		 
+ *
+ 
+ 
+ *
+ *   Copyright (c) 2021-2022 Saeed Fakhry (the main author of this code),
+ *   Simone Albanesi, Fabrizio di Giovanni, Davide Guerra, Miquel Miravet
+ *
+ *   This file is part of FAS (Fermion-Axion Star program).
+ *
+ *   FAS is free software (we accept a coffee or a beer if you want); 
+ *   you can redistribute it and/or modify it under the terms of the 
+ *   people that develope it.
+ *
+ *   This script will use the codes Shoot.cpp and Solve.cpp in order
+ *   to build the 2-D existence plot of a fermion-axion star. 
+ *
+ *
+
+
+ *
+ *
+ *   Revision 1.1  2021/12/02  21:00:00  Davide Guerra
+ *       *** first patch ***
+ *
+ *
+ *
+'''
+
 import numpy as np
 import os 
 import sys
@@ -130,6 +171,9 @@ if input_dict['give_axion_exp']:
     fa_axion_exp   = input_dict['fa_axion_exp']
     fa_axion       = '{:.15f}'.format(10**fa_axion_exp)
     cv['fa_axion'] = fa_axion
+else :
+    fa_axion  = input_dict['fa_axion']    
+
 
 #--------------------------------------------------------------
 # create log file and write input used
@@ -191,18 +235,17 @@ if only_input_txt:
 #--------------------------------------------------------------
 # compile the code 
 #--------------------------------------------------------------
-os.system('cp '+cpp_dir+'seeds/Shoot.cpp '+cpp_dir+'Shoot.cpp')
-os.system('cp '+cpp_dir+'seeds/Solve.cpp '+cpp_dir+'Solve.cpp')
+os.system('cp '+cpp_dir+'seeds/*.cpp '+cpp_dir+'.')
+os.system('cp '+cpp_dir+'seeds/*.h '+cpp_dir+'.')
 compile_message = '>> Compiling Shoot.cpp and Solve.cpp:\n'
 for cvk in compilation_variables_keys:
-    var_def = cvk+'='+str(cv[cvk])
-    sed_opt = '|'+cvk+'=VALUE|/'+var_def
-    os.system('sed -i.bak "s/'+sed_opt+'/" '+cpp_dir+'Shoot.cpp')
-    os.system('sed -i.bak "s/'+sed_opt+'/" '+cpp_dir+'Solve.cpp')
+    var_def = cvk+' '+str(cv[cvk])
+    sed_opt = '|'+cvk+' VALUE|/'+var_def
+    os.system('sed -i.bak "s/'+sed_opt+'/" '+cpp_dir+'shooting.h')
     os.system('rm -f '+cpp_dir+'*.bak')
-    compile_message += var_def.replace('=', ' '*(16-len(cvk))+' : ')+'\n'
-os.system('g++ -o '+bin_dir+'Shoot '+cpp_dir+'Shoot.cpp -w')
-os.system('g++ -o '+bin_dir+'Solve '+cpp_dir+'Solve.cpp -w')
+    compile_message += var_def.replace(' ', ' '*(16-len(cvk))+' : ')+'\n'
+os.system('g++ -o '+bin_dir+'Shoot '+cpp_dir+'Shoot.cpp '+cpp_dir+'root_shoot.cpp -w')
+os.system('g++ -o '+bin_dir+'Solve '+cpp_dir+'Solve.cpp '+cpp_dir+'root_shoot.cpp -w')
 append2file(wrapper_log, compile_message+dashes)
 
 #--------------------------------------------------------------
@@ -240,6 +283,49 @@ os.popen(bin_dir+'Solve ' + outfiles_dir + ' > ' +fout_solve + '  2>&1 ').read()
 os.popen('mv '+fout_shoot+' '+fout_solve+' '+outfiles_dir).read()
 os.system('mv Input.txt '+outfiles_dir)
 
+
+#--------------------------------------------------------------
+# TIME TO MOVE
+#--------------------------------------------------------------
+
+if not os.path.exists(outfiles_dir+'/Bospotential'):
+    os.system('mkdir '+outfiles_dir+'/Bospotential')
+os.system('mv '+outfiles_dir+'/bospotential* '+outfiles_dir+'/Bospotential')
+
+if not os.path.exists(outfiles_dir+'/Conformal'):
+    os.system('mkdir '+outfiles_dir+'/Conformal')
+os.system('mv '+outfiles_dir+'/conformal* '+outfiles_dir+'/Conformal')    
+    
+if not os.path.exists(outfiles_dir+'/Info'):
+    os.system('mkdir '+outfiles_dir+'/Info')
+os.system('mv '+outfiles_dir+'/info* '+outfiles_dir+'/Info')    
+    
+if not os.path.exists(outfiles_dir+'/MMixed'):
+    os.system('mkdir '+outfiles_dir+'/MMixed')
+os.system('mv '+outfiles_dir+'/Mixed* '+outfiles_dir+'/MMixed')    
+
+if not os.path.exists(outfiles_dir+'/Sola'):
+    os.system('mkdir '+outfiles_dir+'/Sola')
+os.system('mv '+outfiles_dir+'/sola* '+outfiles_dir+'/Sola')
+    
+if not os.path.exists(outfiles_dir+'/Solmas'):
+    os.system('mkdir '+outfiles_dir+'/Solmas')
+os.system('mv '+outfiles_dir+'/solmas* '+outfiles_dir+'/Solmas')
+    
+if not os.path.exists(outfiles_dir+'/SolP'):
+    os.system('mkdir '+outfiles_dir+'/SolP')
+os.system('mv '+outfiles_dir+'/solP* '+outfiles_dir+'/SolP')
+    
+if not os.path.exists(outfiles_dir+'/Solphi'):
+    os.system('mkdir '+outfiles_dir+'/Solphi')
+os.system('mv '+outfiles_dir+'/solphi* '+outfiles_dir+'/Solphi')
+    
+if not os.path.exists(outfiles_dir+'/Solr'):
+    os.system('mkdir '+outfiles_dir+'/Solr')
+os.system('mv '+outfiles_dir+'/solr* '+outfiles_dir+'/Solr')
+
+os.system('mv log* '+outfiles_dir)
+
 #--------------------------------------------------------------
 # do a simple plot in the case of axion stars
 #--------------------------------------------------------------
@@ -251,6 +337,7 @@ if rho0c_N==1:
     pl.plot(phic, Mbar)
     pl.xlabel(r'$\Phi_c$')
     pl.ylabel(r'$M$')
+    pl.grid(True)
     fa_exp_str = '{:.1f}'.format(np.log10(float(fa_axion)))
     pl.title(r'$f_a = 10^{'+fa_exp_str+'}$')
     ax.yaxis.get_ticklocs(minor=True)
