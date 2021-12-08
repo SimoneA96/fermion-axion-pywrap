@@ -32,11 +32,11 @@ int main(int argc, char *argv[]){
     //x_init          = 0.5; // curve that ends on boundary
     //y_init          = 0.5;
     //start_direction = 1;
-    x_init          = -1; // closed curve
-    y_init          = 0.5;
-    start_direction = 3;
+    x_init          = 0.3; // closed curve
+    y_init          = -1;
+    start_direction = 1;
     ds              = 0.02;  // used for initial step and for squares
-    L               = 5e-3;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
+    L               = 1e-2;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = -1;
     xmax            = 1;
     ymin            = -1;

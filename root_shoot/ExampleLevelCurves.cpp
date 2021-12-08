@@ -54,14 +54,8 @@ int main(int argc, char *argv[]){
     int maxpoints, verbose;
     char fname[]="out_example.txt";
 
-    // if swap(x,y), start directions become:
-    // 1->3, 2->4, 3->1, 4->2
-
-    //x_init          = 0.5; // curve that ends on boundary
-    //y_init          = 0.5;
-    //start_direction = 1;
-    x_init          = 0.001; // closed curve
-    y_init          = 0.0001;
+    x_init          = 0.004;
+    y_init          = 0.001;
     start_direction = 2;
     ds              = 1e-2;  // used for initial step and for squares
     L               = 1e-4;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
@@ -69,8 +63,8 @@ int main(int argc, char *argv[]){
     xmax            = 0.008;
     ymin            = 0;
     ymax            = 0.42;
-    tol             = 1e-3; // tolerance in bisection
-    maxpoints       = 100;   // maximum number of points for the level curve 
+    tol             = 1e-4; // tolerance in bisection
+    maxpoints       = 20;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"
     FindLevelCurve(x_init, y_init, ds, start_direction, L, tol, shooting_omega, xmin, xmax, ymin, ymax, fname, maxpoints);

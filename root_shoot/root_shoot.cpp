@@ -200,6 +200,7 @@ int ode_int(long double phi0c, long double rho0c, long double omega, long double
 long double shooting_omega(long double rho0c, long double phi0c){
 
   Rmax=R_inf;
+  printf("Rmax: %-8.5Lf grr: %-8.5Lf omega2: %-8.5Lf\n", Rmax, grr, omega2);
 
   //Cuts for phi and P: if the solution goes over these values it breaks. To avoid having nans. 
   Cutphi = 1.1*phi0c;
@@ -270,13 +271,14 @@ long double shooting_omega(long double rho0c, long double phi0c){
 
   }
 		
-  cout<<endl;
+  //cout<<endl;
   
   mass = ((Rmax/2.) * (1-1./pow(grr,2)));
   
 //  cout <<  phi0c << " " << KK*pow(rho0c,polind) << " " << mid_omega <<" "<<R_inf<< endl;
 //  cout<<"grr= "<<grr<<" mass= "<<mass<<endl<<endl;
-  
+
+ /*
   for(int i=0;i<5;i++){
     y[i]=0;
     y_axi[i]=0;
@@ -299,7 +301,7 @@ long double shooting_omega(long double rho0c, long double phi0c){
   CutP=0;  
   delta_r=0;
   r=0;               
-  
+  */
   return mass;
   
   
