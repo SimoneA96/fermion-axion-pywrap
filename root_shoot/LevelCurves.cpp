@@ -312,7 +312,7 @@ int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direct
         } else {
             iter = BisectionForLevelCurves(a, c, b, c, func, K, tol, x0, y0);
         }
-        L = fabs(b-a);
+        L = fabs(b-a)/2;
         //printf("%f %f %f %f %f %f\n", dx, dy, dX, dY, molt, L);
         molt *= 1.5;
     }

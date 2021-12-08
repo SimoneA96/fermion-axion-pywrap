@@ -154,7 +154,7 @@ while iter<1
         [xsc, ysc, iter] = BisectionAlongLine(a, c, b, c, tol, root_function);
     end
     molt = molt*1.5;
-    L    = abs(b-a);
+    L    = abs(b-a)/2;
 end
 
 points      = zeros(N+2,2);
