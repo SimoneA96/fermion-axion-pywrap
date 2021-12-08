@@ -54,7 +54,6 @@ int BisectionForLevelCurves(double x1, double y1, double x2, double y2,
     //cout<<"-------------------------------------------"<<endl;
     //printf("x1: %-8.5f y1: %-8.5f M1: %-8.5Lf\n", x1, y1, func(x1,y1));
     //printf("x2: %-8.5f y2: %-8.5f M2: %-8.5Lf\n", x2, y2, func(x2,y2));
-    //cout<<"-------------------------------------------"<<endl;
     
     if (f1*f2>0){
         return iter;
@@ -439,8 +438,9 @@ int Iterate(double x_init, double y_init, double dx, double dy, double x0, doubl
         
         points[i][0] = x0;
         points[i][1] = y0;
+        printf("Points found: %d\n", points_counter);
         points_counter++;
-
+        
         if (x0<xmin || x0>xmax || y0<ymin || y0>ymax || 
             last_point_on_boundary || (fabs(x0-x_init)<=dx && fabs(y0-y_init)<=dy)){
             printf("Stopped at %d iteration\n", i);
