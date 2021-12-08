@@ -1,3 +1,8 @@
+/*
+ *	move to the previous directory to run the code
+ *
+ */
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
