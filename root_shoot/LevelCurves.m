@@ -67,6 +67,10 @@ if DEBUG
         y1 = square(1,2);
         y2 = square(2,2);
         side_number = FindSquareSide(z0, x0, y0, square, xp, yp);
+        if side_number==0
+            disp(logic_vec)
+            error('side not found!')
+        end
         if side_number==1 || side_number==3
             a         = y1;
             b         = y2;
@@ -115,34 +119,42 @@ root_function = @(x,y) (func(x,y)-M);
 fprintf('Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n', M, xp, yp)
 
 % find second point 
-switch start_direction
-    case 1
-        a       = max(yp-dy,ymin);
-        b       = min(yp+dy,ymax);
-        c       = xp-dx*1.3;
-        isyaxis = 1;
-    case 2
-        a       = max(xp-dx,xmin);
-        b       = min(xp+dx,xmax);
-        c       = yp+dy*1.3;
-        isyaxis = 0;
-    case 3
-        a       = max(yp-dy,ymin);
-        b       = min(yp+dy,ymax);
-        c       = xp+dx*1.3;
-        isyaxis = 1;
-    case 4
-        a       = max(xp-dx,xmin);
-        b       = min(xp+dx,xmax);
-        c       = yp-dy*1.3;
-        isyaxis = 0;
-    otherwise
-        error('start_direction must be 1,2,3 or 4')
-end
-if isyaxis
-    [xsc, ysc] = BisectionAlongLine(c, a, c, b, tol, root_function);
-else
-    [xsc, ysc] = BisectionAlongLine(a, c, b, c, tol, root_function);
+iter = 0;
+molt = 1;
+while iter<1
+    dX = dx*molt;
+    dY = dy*molt;
+    switch start_direction
+        case 1
+            a       = max(yp-dY,ymin);
+            b       = min(yp+dY,ymax);
+            c       = xp-dx;
+            isyaxis = 1;
+        case 2
+            a       = max(xp-dX,xmin);
+            b       = min(xp+dX,xmax);
+            c       = yp+dy;
+            isyaxis = 0;
+        case 3
+            a       = max(yp-dY,ymin);
+            b       = min(yp+dY,ymax);
+            c       = xp+dx;
+            isyaxis = 1;
+        case 4
+            a       = max(xp-dX,xmin);
+            b       = min(xp+dX,xmax);
+            c       = yp-dy;
+            isyaxis = 0;
+        otherwise
+            error('start_direction must be 1,2,3 or 4')
+    end
+    
+    if isyaxis
+        [xsc, ysc, iter] = BisectionAlongLine(c, a, c, b, tol, root_function);
+    else
+        [xsc, ysc, iter] = BisectionAlongLine(a, c, b, c, tol, root_function);
+    end
+    molt = molt*1.5;
 end
 
 points      = zeros(N+2,2);
@@ -310,7 +322,7 @@ return
 
 function z = func(x,y)
 z = sin(4*x).*cos(4*y);
-%z = sin(x.*y);
+%{
 xmin = -1;
 xmax =  1;
 ymin = -1;
@@ -324,6 +336,7 @@ elseif y<ymin
 elseif y>ymax
     error('y=%f>ymax\n',y);
 end
+%}
 return
 
 function [xroot, yroot, iter] = BisectionAlongLine(x1, y1, x2, y2, tol, myfunc)
@@ -385,25 +398,12 @@ x1  = x0-dx;
 x2  = x0+dx;
 y1  = y0-dy;
 y2  = y0+dy;
-%{
-eps = 1e-10;
-if x1<xmin
-    x1 = xmin+eps;
-end
-if x2>xmax
-    x2 = xmax-eps;
-end
-if y1<ymin
-    y1 = ymin+eps;
-end
-if y2>ymax
-    y2 = ymax-eps;
-end
-%}
+
 x1 = max(xmin,x1);
 x2 = min(xmax,x2);
 y1 = max(ymin,y1);
 y2 = min(ymax,y2);
+
 points      = zeros(4,2);
 points(1,:) = [x1, y1];
 points(2,:) = [x1, y2];
@@ -429,10 +429,7 @@ for i=1:4
     end
 end
 
-if sum(logic_vec)==0
-    side_number = 0;
-end
-
+side_number = 0;
 if logic_vec(1) && logic_vec(3)
     if x0>x_previous
         side_number = 3;
@@ -470,6 +467,11 @@ elseif logic_vec(1) && logic_vec(4)
         side_number = 4;
     end
 end
+
+if sum(logic_vec)==1
+    [~, side_number] = max(logic_vec);
+end
+
 return
 
 function [x1,y1,x2,y2] = FindPointsForRootFinder(xp,yp,x0,y0,L)

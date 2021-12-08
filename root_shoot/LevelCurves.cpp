@@ -27,7 +27,6 @@
 */
 
 #include "LevelCurves.h"
-#include "shooting.h"
 /*
 TODO
 - add comments 
@@ -49,17 +48,13 @@ int BisectionForLevelCurves(double x1, double y1, double x2, double y2,
     itermax = 100;
     iter    = -1;
     
-
-    printf("grr before 1: %-8.5Lf\n", grr);
     f1 = func(x1,y1)-K;
-    printf("grr before 2: %-8.5Lf\n", grr);
     f2 = func(x2,y2)-K;
-    printf("grr after merda: %-8.5Lf\n", grr);
     
-    cout<<"-------------------------------------------"<<endl;
-    printf("x1: %-8.5f y1: %-8.5f M1: %-8.5f\n", x1, y1, f1+K);
-    printf("x2: %-8.5f y2: %-8.5f M2: %-8.5f\n", x2, y2, f2+K);
-    cout<<"-------------------------------------------"<<endl;
+    //cout<<"-------------------------------------------"<<endl;
+    //printf("x1: %-8.5f y1: %-8.5f M1: %-8.5Lf\n", x1, y1, func(x1,y1));
+    //printf("x2: %-8.5f y2: %-8.5f M2: %-8.5Lf\n", x2, y2, func(x2,y2));
+    //cout<<"-------------------------------------------"<<endl;
     
     if (f1*f2>0){
         return iter;
@@ -142,19 +137,19 @@ int FindSquareSide(double K, double x0, double y0, double square[][2], double x_
                    long double (*func)(long double, long double)){
     double k1, k2, k3, k4;
     double intervals[4][2]={{0}};
-    double logic_vec[4]={0};
+    int logic_vec[4]={0};
 
     k1 = func(square[0][0], square[0][1]);
     k2 = func(square[1][0], square[1][1]);
     k3 = func(square[2][0], square[2][1]);
     k4 = func(square[3][0], square[3][1]);
     
-    cout<<"-------------------------------------------"<<endl;
-    printf("x1: %-8.5f y1: %-8.5f M1: %-8.5f\n", square[0][0], square[0][1], k1);
-    printf("x2: %-8.5f y2: %-8.5f M2: %-8.5f\n", square[1][0], square[1][1], k2);
-    printf("x3: %-8.5f y3: %-8.5f M3: %-8.5f\n", square[2][0], square[2][1], k3);
-    printf("x4: %-8.5f y4: %-8.5f M4: %-8.5f\n", square[3][0], square[3][1], k4);
-    cout<<"-------------------------------------------"<<endl;
+    //cout<<"-------------------------------------------"<<endl;
+    //printf("x1: %-8.5f y1: %-8.5f M1: %-8.5f\n", square[0][0], square[0][1], k1);
+    //printf("x2: %-8.5f y2: %-8.5f M2: %-8.5f\n", square[1][0], square[1][1], k2);
+    //printf("x3: %-8.5f y3: %-8.5f M3: %-8.5f\n", square[2][0], square[2][1], k3);
+    //printf("x4: %-8.5f y4: %-8.5f M4: %-8.5f\n", square[3][0], square[3][1], k4);
+    //cout<<"-------------------------------------------"<<endl;
 
     if (k1<k2){
         intervals[0][0] = k1;
@@ -194,11 +189,7 @@ int FindSquareSide(double K, double x0, double y0, double square[][2], double x_
             logic_vec[i] = 1;
     }
 
-    int side_number;
-
-    if ((logic_vec[0]+logic_vec[1]+logic_vec[2]+logic_vec[3])<1e-12)
-        side_number = 0;
-
+    int side_number=0;
     if (logic_vec[0] && logic_vec[2]){
         if (x0>x_previous){
             side_number = 3;
@@ -236,6 +227,17 @@ int FindSquareSide(double K, double x0, double y0, double square[][2], double x_
             side_number = 4;
         }
     }
+
+    // check single passage (possible at iter=0)
+    if (side_number<1e-12){
+        for(int i=0; i<4; i++){
+            if (logic_vec[i]==1){
+                side_number = i+1;
+                break;
+            }
+        }
+    }
+    
     return side_number;
 }
 
@@ -269,50 +271,51 @@ void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, doub
     return;
 }
 
-bool FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
+int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
                      double xmin, double xmax, double ymin, double ymax,
                      long double (*func)(long double, long double), double K, double tol, double &x0, double &y0){
     printf("Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n", K, xp, yp);
     double a,b,c;
+    double dX,dY,molt;
     bool isyaxis;
-    // find second point 
-    if (start_direction==1) {
-        a       = max(yp-dy,ymin);
-        b       = min(yp+dy,ymax);
-        c       = xp-dx*1.3;
-        isyaxis = 1;
-    } else if (start_direction==2){
-        a       = max(xp-dx,xmin);
-        b       = min(xp+dx,xmax);
-        c       = yp+dy*1.3;
-        isyaxis = 0;
-    } else if (start_direction==3){
-        a       = max(yp-dy,xmin);
-        b       = min(yp+dy,ymax);
-        c       = xp+dx*1.3;
-        isyaxis = 1;
-    } else if (start_direction==4){
-        a       = max(xp-dx,xmin);
-        b       = min(xp+dx,xmax);
-        c       = yp-dy*1.3;
-        isyaxis = 0;
-    } else {
-        printf("start_direction must be 1,2,3 or 4");
-        return 0;
-    }
+    int iter=-1; 
     
-    printf("xp: %-8.5f yp: %-8.5f\n",xp,yp);
-    printf("a : %-8.5f b : %-8.5f c : %-8.5f\n",a,b,c);
-    
-    printf("prima bisection, grr: %-8.5Lf\n", grr);
-
-    if (isyaxis) {
-        printf("bisection isyaxis %d\n", isyaxis);
-        return BisectionForLevelCurves(c, a, c, b, func, K, tol, x0, y0);
-    } else {
-        printf("bisection isyaxis %d\n", isyaxis);
-        return BisectionForLevelCurves(a, c, b, c, func, K, tol, x0, y0);
+    molt = 1.;
+    while (iter<0){
+        dX = dx*molt;
+        dY = dy*molt;
+        if (start_direction==1) {
+            a       = max(yp-dY,ymin);
+            b       = min(yp+dY,ymax);
+            c       = xp-dx;
+            isyaxis = 1;
+        } else if (start_direction==2){
+            a       = max(xp-dX,xmin);
+            b       = min(xp+dX,xmax);
+            c       = yp+dy;
+            isyaxis = 0;
+        } else if (start_direction==3){
+            a       = max(yp-dY,ymin);
+            b       = min(yp+dY,ymax);
+            c       = xp+dx;
+            isyaxis = 1;
+        } else if (start_direction==4){
+            a       = max(xp-dX,xmin);
+            b       = min(xp+dX,xmax);
+            c       = yp-dy;
+            isyaxis = 0;
+        } else {
+            printf("start_direction must be 1,2,3 or 4");
+            return 0;
+        }
+        if (isyaxis) {
+            iter = BisectionForLevelCurves(c, a, c, b, func, K, tol, x0, y0);
+        } else {
+            iter = BisectionForLevelCurves(a, c, b, c, func, K, tol, x0, y0);
+        }
+        molt*=1.5;
     }
+    return iter;
 }
 
 int Iterate(double x_init, double y_init, double dx, double dy, double x0, double y0,
@@ -450,21 +453,30 @@ int Iterate(double x_init, double y_init, double dx, double dy, double x0, doubl
     return points_counter; 
 }
 
-void FindLevelCurve(double x_init, double y_init, double ds, int start_direction, double L, double tol, long double
+void FindLevelCurve(double x_init, double y_init, double ds, char *start_direction_str, double L, double tol, long double
                    (*func)(long double, long double), double xmin, double xmax, double ymin, double ymax, 
                    char *fname, int maxpoints){
-    
     double x0, y0,K;
     double dx, dy;
-    
+    int start_direction;
+    int iter=0;
+
     K  = func(x_init,y_init);
     dx = ds*(xmax-xmin);
     dy = ds*(ymax-ymin);
-    
-    cout<<"M     : "<<K<<endl;
-    cout<<"dx    : "<<dx<<    " dy    : "<<dy<<endl<<endl;
-    cout<<"x_init: "<<x_init<<" y_init: "<<y_init<<endl;
-
+   
+    if (!strcmp(start_direction_str,"left")){
+        start_direction = 1;
+    } else if (!strcmp(start_direction_str, "up")){
+        start_direction = 2;
+    } else if (!strcmp(start_direction_str, "right")){
+        start_direction = 3;
+    } else if (!strcmp(start_direction_str, "down")){
+        start_direction = 4;
+    } else {
+        printf("Wrong input! The initial direction can be 'left', 'up', 'right' or 'down'");
+        return;
+    }
     FindSecondPoint(x_init, y_init, dx, dy, start_direction, xmin, xmax, ymin, ymax, func, K, tol, x0, y0);
     
     // allocate points
@@ -477,10 +489,7 @@ void FindLevelCurve(double x_init, double y_init, double ds, int start_direction
     points[0][1] = y_init;
     points[1][0] = x0;
     points[1][1] = y0;
-    
-    cout<<"x0    : "<<x0<<    " y0    : "<<y0<<endl;
 
-    int iter;
     iter = Iterate(x_init, y_init, dx, dy, x0, y0, xmin, xmax, ymin, ymax, L, tol, points, maxpoints, func, K);
     
     FILE *fp;
@@ -496,5 +505,3 @@ void FindLevelCurve(double x_init, double y_init, double ds, int start_direction
         delete[] points[i]; 
     delete[] points;
 }
-
-

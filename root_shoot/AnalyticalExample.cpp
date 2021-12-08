@@ -25,16 +25,16 @@ long double MyFunction(long double, long double);
 
 int main(int argc, char *argv[]){
     double xmin, xmax, ymin, ymax;
-    double x_init, y_init, ds,  start_direction, L, tol;
+    double x_init, y_init, ds, L, tol;
     int maxpoints, verbose;
     char fname[]="out_example.txt";
+    char start_direction[] = "left";
     
     //x_init          = 0.5; // curve that ends on boundary
     //y_init          = 0.5;
     //start_direction = 1;
     x_init          = 0.3; // closed curve
     y_init          = -1;
-    start_direction = 1;
     ds              = 0.02;  // used for initial step and for squares
     L               = 1e-2;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = -1;
