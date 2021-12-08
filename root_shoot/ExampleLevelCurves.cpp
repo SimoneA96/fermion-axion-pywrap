@@ -58,7 +58,6 @@ int main(int argc, char *argv[]){
     x_init          = 0.002;
     y_init          = 0.01;
     ds              = 1e-2;  // used for initial step and for squares
-    L               = 1e-3;  // distance(C,D) = 2*L (C and D points constructed for the bisection wo/ squares)
     xmin            = 0;
     xmax            = 0.008;
     ymin            = 0;
@@ -67,7 +66,7 @@ int main(int argc, char *argv[]){
     maxpoints       = 20;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"
-    FindLevelCurve(x_init, y_init, ds, start_direction, L, tol, shooting_omega, xmin, xmax, ymin, ymax, fname, maxpoints);
+    FindLevelCurve(x_init, y_init, ds, start_direction, tol, shooting_omega, xmin, xmax, ymin, ymax, fname, maxpoints);
     
     return 0;
 }

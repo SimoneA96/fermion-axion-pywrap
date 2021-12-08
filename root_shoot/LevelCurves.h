@@ -16,11 +16,11 @@ void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, doub
                              double &x1, double &y1, double &x2, double &y2);
 int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
                      double xmin, double xmax, double ymin, double ymax,
-                     long double (*func)(long double, long double), double K, double tol, double &x0, double &y0);
+                     long double (*func)(long double, long double), double K, double tol, double &x0, double &y0, double &L);
 int Iterate(double x_init, double y_init, double dx, double dy, double x0, double y0, 
                     double xmin, double xmax, double ymin, double ymax, double L, double tol, double **points, int N,
                     long double (*func)(long double, long double), double K);
-void FindLevelCurve(double x_init, double y_init, double ds, char *start_direction, double L, double tol, long double
-                   (*func)(long double, long double), double xmin, double xmax, double ymin, double ymax, 
-                   char *fname, int maxpoints);
+void FindLevelCurve(double x_init, double y_init, double ds, char *start_direction, double tol, 
+                    long double (*func)(long double, long double), double xmin, double xmax, 
+                    double ymin, double ymax, char *fname, int maxpoints);
 

@@ -272,8 +272,8 @@ void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, doub
 
 int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
                      double xmin, double xmax, double ymin, double ymax,
-                     long double (*func)(long double, long double), double K, double tol, double &x0, double &y0){
-    printf("Searching level-curve for M=%.3f starting from (x,y)=(%.3f,%.3f)\n", K, xp, yp);
+                     long double (*func)(long double, long double), double K, double tol, double &x0, double &y0, double &L){
+    printf("Searching level-curve for K=%.3f starting from (x,y)=(%.3f,%.3f)\n", K, xp, yp);
     double a,b,c;
     double dX,dY,molt;
     bool isyaxis;
@@ -281,8 +281,8 @@ int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direct
     
     molt = 1.;
     while (iter<0){
-        dX = dx*molt;
-        dY = dy*molt;
+        dX    = dx*molt;
+        dY    = dy*molt;
         if (start_direction==1) {
             a       = max(yp-dY,ymin);
             b       = min(yp+dY,ymax);
@@ -312,7 +312,9 @@ int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direct
         } else {
             iter = BisectionForLevelCurves(a, c, b, c, func, K, tol, x0, y0);
         }
-        molt*=1.5;
+        L = fabs(b-a);
+        //printf("%f %f %f %f %f %f\n", dx, dy, dX, dY, molt, L);
+        molt *= 1.5;
     }
     return iter;
 }
@@ -453,11 +455,11 @@ int Iterate(double x_init, double y_init, double dx, double dy, double x0, doubl
     return points_counter; 
 }
 
-void FindLevelCurve(double x_init, double y_init, double ds, char *start_direction_str, double L, double tol, long double
+void FindLevelCurve(double x_init, double y_init, double ds, char *start_direction_str, double tol, long double
                    (*func)(long double, long double), double xmin, double xmax, double ymin, double ymax, 
                    char *fname, int maxpoints){
-    double x0, y0,K;
-    double dx, dy;
+    double x0, y0, K;
+    double dx, dy, L;
     int start_direction;
     int iter=0;
 
@@ -477,7 +479,7 @@ void FindLevelCurve(double x_init, double y_init, double ds, char *start_directi
         printf("Wrong input! The initial direction can be 'left', 'up', 'right' or 'down'");
         return;
     }
-    FindSecondPoint(x_init, y_init, dx, dy, start_direction, xmin, xmax, ymin, ymax, func, K, tol, x0, y0);
+    FindSecondPoint(x_init, y_init, dx, dy, start_direction, xmin, xmax, ymin, ymax, func, K, tol, x0, y0, L);
     
     // allocate points
     double **points; 

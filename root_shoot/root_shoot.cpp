@@ -56,8 +56,8 @@ long double Rmax, omega2, Cutphi, CutP, delta_r, r;     // variable for the ODE 
 // function that evaluate the sign of a variable (1 if positive, 0 if null, -1 if negative)                               
 int sign (long double z) {
   if (z>0) return 1;
-  if (z==0) return  0;
-  if (z<0) return -1;
+  else if (z<0) return -1;
+  else return  0;
 }
 
 // function that return the minimun between two input variables

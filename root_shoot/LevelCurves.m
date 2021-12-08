@@ -1,6 +1,5 @@
-function LevelCurves(x_init, y_init, start_direction, ds, L, N, onlySquare)
+function LevelCurves(x_init, y_init, start_direction, ds, N, onlySquare)
 %
-% If L==0, use L=sqrt((xp-x0)^2+(yp-y0)^2)
 %
 % Method of perpendicular: 
 % see figure that doesn't exist
@@ -155,6 +154,7 @@ while iter<1
         [xsc, ysc, iter] = BisectionAlongLine(a, c, b, c, tol, root_function);
     end
     molt = molt*1.5;
+    L    = abs(b-a);
 end
 
 points      = zeros(N+2,2);
