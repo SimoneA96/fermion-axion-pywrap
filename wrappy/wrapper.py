@@ -272,7 +272,7 @@ t2 = time.perf_counter()
 append2file(wrapper_log, 'Estimated time needed: {:.2f} s'.format((t2-t1)/lines*Nmodels))
 p = process.communicate()
 t3 = time.perf_counter()
-append2file(wrapper_log, 'Elapsed time: '+str(t3-t1)+' s\n'+dashes)
+append2file(wrapper_log, 'Elapsed time: {:.2f} s\n'.format(t3-t1)+dashes)
 
 #--------------------------------------------------------------
 # run Solve
@@ -324,8 +324,6 @@ if not os.path.exists(outfiles_dir+'/Solr'):
     os.system('mkdir '+outfiles_dir+'/Solr')
 os.system('mv '+outfiles_dir+'/solr* '+outfiles_dir+'/Solr')
 
-os.system('mv log* '+outfiles_dir)
-
 #--------------------------------------------------------------
 # do a simple plot in the case of axion stars
 #--------------------------------------------------------------
@@ -345,4 +343,6 @@ if rho0c_N==1:
     pl.savefig(outfiles_dir+'/existence_plot.png')
 
 tend = time.perf_counter()
-append2file(wrapper_log, dashes+'\nTotal elapsed time: '+str(tend-t0)+' s')
+append2file(wrapper_log, dashes+'\nTotal elapsed time: {:.2f} s'.format(tend-t0))
+
+os.system('mv log* '+outfiles_dir)
