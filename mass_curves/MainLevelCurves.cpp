@@ -3,15 +3,15 @@
  *   perpendicular to the sides and pointing outside the square (e.g.
  *   start_direction=3 means --->, start_direction=1 means <---).
  *
- *                2
+ *                up
  *        2---------------3
  *        |               | 
  *        |               |
- *      1 |               | 3
+ *   left |               | right
  *        |               |
  *        |               |
  *        1---------------4
- *                4
+ *             bottom
  */
  
  
@@ -52,18 +52,18 @@ int main(int argc, char *argv[]){
     double xmin, xmax, ymin, ymax;
     double x_init, y_init, ds, L, tol;
     int maxpoints, verbose;
-    char fname[]="out_example.txt";
+    char fname[]="out_equalmass.txt";
     char start_direction[]="up";
     
-    x_init          = 0.002;
-    y_init          = 0.01;
+    x_init          = 0.0012;
+    y_init          = 0.000;
     ds              = 1e-2;  // used for initial step and for squares
     xmin            = 0;
     xmax            = 0.008;
     ymin            = 0;
     ymax            = 0.42;
     tol             = 1e-4; // tolerance in bisection
-    maxpoints       = 20;   // maximum number of points for the level curve 
+    maxpoints       = 100;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"
     FindLevelCurve(x_init, y_init, ds, start_direction, tol, shooting_omega, xmin, xmax, ymin, ymax, fname, maxpoints);

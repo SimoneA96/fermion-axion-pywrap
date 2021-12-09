@@ -14,6 +14,14 @@
  */
 
 /*
- *   COMPILE: g++ -o example ExampleLevelCurves.cpp LevelCurves.cpp root_shoot.cpp
+ *   ATTENTION: MODIFY THE GLOBAL CONSTANTS IN SHOOTING.H BEFORE RUNNING:
+ *   KK, polind, fa_axion, m_ax, R_inf	
  *
+ *   COMPILE: g++ -o LevelCurves MainLevelCurves.cpp LevelCurves.cpp root_shoot.cpp
+ *   
+ *   OUTPUT: 
+ *   precision   number_of_points_in_single_iteration
+ *   number_of_points
+ *
+ *   phi     rho     R_inf
  */

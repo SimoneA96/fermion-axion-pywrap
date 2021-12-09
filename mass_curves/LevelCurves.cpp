@@ -33,6 +33,7 @@ TODO
 - fix notation: x1/x2 used many times for different things
 */
 
+
 double L2SquareDistance(double x1, double y1, double x2, double y2){
    return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2); 
 }
@@ -273,7 +274,7 @@ void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, doub
 int FindSecondPoint(double xp, double yp, double dx, double dy, int start_direction, 
                      double xmin, double xmax, double ymin, double ymax,
                      long double (*func)(long double, long double), double K, double tol, double &x0, double &y0, double &L){
-    printf("Searching level-curve for K=%.3f starting from (x,y)=(%.3f,%.3f)\n", K, xp, yp);
+    printf("Searching level-curve for K=%.5f starting from (x,y)=(%.5f,%.5f)\n", K, xp, yp);
     double a,b,c;
     double dX,dY,molt;
     bool isyaxis;
@@ -496,8 +497,11 @@ void FindLevelCurve(double x_init, double y_init, double ds, char *start_directi
     
     FILE *fp;
     fp=fopen(fname,"w");
+    fprintf(fp, "%.5f\n", K);
+    fprintf(fp, "-10 10000\n");
+    fprintf(fp, " %d \n\n", iter);
     for(int i=0; i<iter; i++)
-        fprintf(fp, "%23.15e %23.15e\n", points[i][0], points[i][1]);
+        fprintf(fp, "%23.15e \t %23.15e \t 100 \n", points[i][0], points[i][1]);
     fclose(fp);
 
     cout<<"Ouput printed on '"<<fname<<"'"<<endl;
