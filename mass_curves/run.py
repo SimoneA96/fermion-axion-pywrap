@@ -7,7 +7,7 @@ home_path = os.getcwd()
 path_exist = home_path+'/results/'
 
 #path_plots = path_exist+'plots/'
-    
+   
 try:
     os.makedirs(path_exist)
 except OSError as error:
@@ -19,7 +19,7 @@ os.system('./LevelCurves ')
 
 
 # Taking the data for the plot
-data=np.loadtxt('out_equalmass.txt', skiprows=4)
+data=np.loadtxt('out_equalmass_0.6174.txt', skiprows=4)
 
 plt.clf()
 plt.xlabel(r'$\rho_c/\mu^2$')
@@ -33,7 +33,7 @@ plt.savefig('plot_rho_vs_phi.png', format='png', dpi=400)
 
 with open('out_equalmass.txt', 'r') as fin:
     data_file = fin.read().splitlines(True)
-    mass=data_file[0,-2]
+    mass=data_file[0][:-2]
 
 with open('out_equalmass_'+mass+'.txt', 'w') as fout:
     fout.writelines(data_file[1:])
