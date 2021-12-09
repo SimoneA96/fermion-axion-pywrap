@@ -27,13 +27,13 @@ plt.ylabel(r'$\phi_c$')
 plt.grid(True)
 plt.xlim(0.0,0.008)
 plt.ylim(0.0,0.14)
-plt.plot(data[:,0],data[:,1])
+plt.plot(data[:,1],data[:,0])
 plt.savefig('plot_rho_vs_phi.png', format='png', dpi=400)
 
 
 with open('out_equalmass.txt', 'r') as fin:
     data_file = fin.read().splitlines(True)
-    mass=data_file[0]
+    mass=data_file[0,-2]
 
 with open('out_equalmass_'+mass+'.txt', 'w') as fout:
     fout.writelines(data_file[1:])

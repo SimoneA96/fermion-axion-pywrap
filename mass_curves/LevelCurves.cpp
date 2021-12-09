@@ -501,7 +501,7 @@ void FindLevelCurve(double x_init, double y_init, double ds, char *start_directi
     fprintf(fp, "-10 10000\n");
     fprintf(fp, " %d \n\n", iter);
     for(int i=0; i<iter; i++)
-        fprintf(fp, "%23.15e \t %23.15e \t 100 \n", points[i][0], points[i][1]);
+        fprintf(fp, "%23.15e \t %23.15e \t 100 \n", points[i][1], points[i][0]);
     fclose(fp);
 
     cout<<"Ouput printed on '"<<fname<<"'"<<endl;
