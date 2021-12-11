@@ -321,8 +321,8 @@ toc
 return 
 
 function z = func(x,y)
-%z = sin(4*x).*cos(4*y);
-z = x;
+z = sin(4*x).*cos(4*y);
+%z = x;
 %{
 xmin = -1;
 xmax =  1;
