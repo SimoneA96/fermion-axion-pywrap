@@ -321,7 +321,8 @@ toc
 return 
 
 function z = func(x,y)
-z = sin(4*x).*cos(4*y);
+%z = sin(4*x).*cos(4*y);
+z = x;
 %{
 xmin = -1;
 xmax =  1;
@@ -475,15 +476,13 @@ end
 return
 
 function [x1,y1,x2,y2] = FindPointsForRootFinder(xp,yp,x0,y0,L)
-if L==0
-    L = sqrt((xp-x0)^2+(yp-y0)^2);
-end
 if xp==x0
     % vertical line
-    x1 = x0;
-    y1 = y0-L;
-    x2 = x0;
-    y2 = y0+L;
+    dy = y0-yp;
+    x1 = x0-L;
+    y1 = y0+dy;
+    x2 = x0+L;
+    y2 = y0+dy;
 else
     % angular coeff of the line passing for (xp,yp) and (x0,y0)
     m = (y0-yp)/(x0-xp);
