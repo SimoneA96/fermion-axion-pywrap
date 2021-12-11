@@ -243,23 +243,28 @@ int FindSquareSide(double K, double x0, double y0, double square[][2], double x_
 
 void FindPointsForRootFinder(double xp,  double yp,  double x0,  double y0, double L, 
                              double &x1, double &y1, double &x2, double &y2){
-    if (xp==x0){
-        x1 = x0;
-        y1 = y0-L;
-        x2 = x0;
-        y2 = y0+L;
+    if (fabs(xp-x0)<1.e-12){
+        double dy = y0-yp;
+        x1 = x0-L;
+        y1 = y0+dy;
+        x2 = x0+L;
+        y2 = y0+dy;
     } else {
         double m, xm, ym, M, Q, a, b, c;
+        
         // angular coeff of the line passing for (xp,yp) and (x0,y0)
         m = (y0-yp)/(x0-xp);
+        
         // middle point of (x1,y1) and (x2,y2)
         xm = 2*x0-xp;
         ym = 2*y0-yp;
+        
         // line perpendicular to y=m*x and passing for the middle point
         M = -1/m;
         Q = ym - M*xm;
+        
         // find (x1,y1) and (x2,y2)
-        a  = (1+M*M);
+        a  = (1+M*M);     
         b  = 2*M*Q-2*xm-2*ym*M;
         c  = xm*xm+ym*ym+Q*Q-2*ym*Q-L*L;
         x1 = (-b-sqrt(b*b-4*a*c))/(2*a);
@@ -344,51 +349,61 @@ int Iterate(double x_init, double y_init, double dx, double dy, double x0, doubl
     
     // variables used for checking that the points for bisection are into the boundary
     int boundary_iters, boundary_iters_max=9, boundary_iters_max_reached;
-    double L_tmp, puppet;
+    double L_tmp, puppet, L_jj;
     
     for(int i=2; i<N; i++){
         if (!last_point_on_boundary){
-            FindPointsForRootFinder(xp,yp,x0,y0,L,x1_bis,y1_bis,x2_bis,y2_bis);
-           
-            boundary_iters_max_reached = 0;
             
-            // check if (x1_bis, y1_bis) is inside the boundary, otherwise change it
-            L_tmp = L;
-            boundary_iters = 0;
-            while (x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
-                L_tmp = L_tmp-L/10;
-                FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,x1_bis,y1_bis,puppet,puppet);
-                boundary_iters++;
-                if (boundary_iters>boundary_iters_max){
-                    boundary_iters_max_reached = 1;
-                    break;
-                }
-            }
+            L_jj=L;
             
-            // check if (x2_bis, y2_bis) is inside the boundary, otherwise change it
-            L_tmp = L;
-            boundary_iters = 0;
-            while (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax){
-                L_tmp = L_tmp-L/10;
-                FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,puppet,puppet,x2_bis,y2_bis);
-                boundary_iters++;
-                if (boundary_iters>boundary_iters_max){
-                    boundary_iters_max_reached = 1;
-                    break;
-                }
-            }
+            //for ( int jj=1; jj<=2; jj++){
+            
+                FindPointsForRootFinder(xp,yp,x0,y0,L_jj,x1_bis,y1_bis,x2_bis,y2_bis);
            
-            if (!boundary_iters_max_reached) {
-                // just a check
-                if (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax ||
-                    x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
-                    printf("+++ Warning! Initial points for bisection outside of boundary at point #%d ++\n", i); 
+                boundary_iters_max_reached = 0;
+            
+                // check if (x1_bis, y1_bis) is inside the boundary, otherwise change it
+                L_tmp = L_jj;
+                boundary_iters = 0;
+                while (x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
+                    L_tmp = L_tmp-L_jj/10;
+                    FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,x1_bis,y1_bis,puppet,puppet);
+                    boundary_iters++;
+                    if (boundary_iters>boundary_iters_max){
+                        boundary_iters_max_reached = 1;
+                        break;
+                    }
                 }
-                // bisection
-                iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
-            } else {
-                iter_bisec = -1;
-            }
+            
+                // check if (x2_bis, y2_bis) is inside the boundary, otherwise change it
+                L_tmp = L_jj;
+                boundary_iters = 0;
+                while (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax){
+                    L_tmp = L_tmp-L_jj/10;
+                    FindPointsForRootFinder(xp,yp,x0,y0,L_tmp,puppet,puppet,x2_bis,y2_bis);
+                    boundary_iters++;
+                    if (boundary_iters>boundary_iters_max){
+                        boundary_iters_max_reached = 1;
+                        break;
+                    }
+                }
+           
+                if (!boundary_iters_max_reached) {
+                    // just a check
+                    if (x2_bis<xmin || x2_bis>xmax || y2_bis<ymin || y2_bis>ymax ||
+                        x1_bis<xmin || x1_bis>xmax || y1_bis<ymin || y1_bis>ymax){
+                        printf("+++ Warning! Initial points for bisection outside of boundary at point #%d ++\n", i); 
+                    }
+                    // bisection
+                    iter_bisec = BisectionForLevelCurves(x1_bis, y1_bis, x2_bis, y2_bis, func, K, tol, x0_tmp, y0_tmp);
+                } else {
+                    iter_bisec = -1;
+                }
+                
+               // L_jj*=2.;
+               // if (iter_bisec >= 0) break;
+           
+           // }
         } else {
             iter_bisec = -1;
         }
@@ -441,7 +456,7 @@ int Iterate(double x_init, double y_init, double dx, double dy, double x0, doubl
         
         points[i][0] = x0;
         points[i][1] = y0;
-        printf("Points found: %d\n", points_counter);
+        printf("Points found: %d \t ( %f , %f )\n", points_counter,x0,y0);
         points_counter++;
         
         if (x0<xmin || x0>xmax || y0<ymin || y0>ymax || 

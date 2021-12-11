@@ -1,15 +1,30 @@
+'''
+ *    RUN: python3 run.py value_for_fa
+ *
+'''
+
 import os, sys
 import matplotlib 
 import matplotlib.pyplot as plt
 import numpy as np
 
 home_path = os.getcwd()
-path_exist = home_path+'/results/'
+path_exist = home_path+'/results/fa-'+sys.argv[1]+'/'
 
 #path_plots = path_exist+'plots/'
    
 try:
+    os.makedirs(home_path+'/results/')
+except OSError as error:
+    print(error)
+        
+try:
     os.makedirs(path_exist)
+except OSError as error:
+    print(error)
+    
+try:
+    os.makedirs(path_exist+'forPLOT/')
 except OSError as error:
     print(error)
 
@@ -19,7 +34,7 @@ os.system('./LevelCurves ')
 
 
 # Taking the data for the plot
-data=np.loadtxt('out_equalmass_0.6174.txt', skiprows=4)
+data=np.loadtxt('out_equalmass.txt', skiprows=4)
 
 plt.clf()
 plt.xlabel(r'$\rho_c/\mu^2$')
