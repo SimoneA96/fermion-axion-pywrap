@@ -1,4 +1,4 @@
-function LevelCurves(x_init, y_init, start_direction, ds, N, onlySquare)
+function LevelCurves(x_init, y_init, start_direction, ds, N, onlySquare, saveGIF)
 %
 %
 % Method of perpendicular: 
@@ -24,12 +24,14 @@ function LevelCurves(x_init, y_init, start_direction, ds, N, onlySquare)
 tol         = 1e-10;
 DEBUG       = 0;
 ShowTestFig = 1;
+gifname     = 'curve.gif';
+delay_time  = 0.1;
 
 xmin = -1;
-xmax =  1;
+xmax =  0.2;
 nx   = 500;
-ymin = -1;
-ymax =  1;
+ymin = -0.6;
+ymax =  0.6;
 ny   = 500;
 
 dx = ds*(xmax-xmin);
@@ -163,16 +165,27 @@ points(2,:) = [xsc,ysc];
 
 % squares method
 if ShowTestFig
-    figure
+    fig = figure;
+    set(gcf,'color','w');
+    %set(gcf, 'Renderer', 'painters', 'Position', [78 10 700 500])
     contour(x,y,z, 50)
     hold on 
-    scatter(xp,  yp, 80, 'o', 'filled', 'MarkerFaceColor', 'm')
-    scatter(xsc,ysc, 80, 'x', 'm', 'LineWidth', 2 )
-    xline(ymin, 'HandleVisibility', 'off');
-    xline(ymax, 'HandleVisibility', 'off');
-    yline(xmin, 'HandleVisibility', 'off');
-    yline(xmax, 'HandleVisibility', 'off');
-
+    scatter(xp,  yp, 80, 'o', 'filled', 'MarkerFaceColor', 'g')
+    %xline(ymin, 'HandleVisibility', 'off');
+    %xline(ymax, 'HandleVisibility', 'off');
+    %yline(xmin, 'HandleVisibility', 'off');
+    %yline(xmax, 'HandleVisibility', 'off');
+    xlim([xmin xmax])
+    ylim([ymin ymax])
+    drawnow
+    if saveGIF
+        SavePhotogram(fig, gifname, 1,  delay_time*3)
+    end
+    scatter(xsc,ysc, 80, 'x', 'g', 'LineWidth', 2 )
+    drawnow
+    if saveGIF
+        SavePhotogram(fig, gifname, 2,  delay_time)
+    end
 end
 
 iter = 0;
@@ -241,10 +254,10 @@ for i=1:N
         x2 = square(4,1); 
         y1 = square(1,2);
         y2 = square(2,2);
-        scatter(x1,y1)
-        scatter(x1,y2)
-        scatter(x2,y2)
-        scatter(x2,y1)
+        %scatter(x1,y1)
+        %scatter(x1,y2)
+        %scatter(x2,y2)
+        %scatter(x2,y1)
         [side_number, logic_vec] = FindSquareSide(M, xsc, ysc, square, xp, yp);
         if side_number==0
             disp(logic_vec)
@@ -288,20 +301,24 @@ for i=1:N
     points(i+2,:) = [xsc, ysc];
     
     if ShowTestFig
-        scatter(xsc,ysc, 80, 'x', 'g', 'LineWidth', 2 )
         if iter==0
             scatter(xsc_old,ysc_old, 70, 'o', 'MarkerEdgeColor', 'k')
             scatter(square(:,1), square(:,2), 'x', 'MarkerEdgeColor', 'r')
         else
-            scatter(x1_bis,y1_bis, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'r')
-            scatter(x2_bis,y2_bis, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'g')
+            scatter(x1_bis,y1_bis, 20, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
+            scatter(x2_bis,y2_bis, 20, 'filled', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
             scatter(xb,yb, 'filled', 'MarkerFaceColor', 'c')
             plot([xp_old,xb], [yp_old,yb], 'r')
             plot([x1_bis,x2_bis], [y1_bis,y2_bis], 'b')
         end
+        scatter(xsc,ysc, 80, 'x', 'g', 'LineWidth', 2 )
         xlim([xmin xmax])
         ylim([ymin ymax])
         drawnow
+        
+        if saveGIF
+            SavePhotogram(fig, gifname, i+2, delay_time)
+        end
     end
     
     if (xsc<xmin) || (xsc>xmax) || (ysc<xmin) || (ysc>ymax) || ...
@@ -506,3 +523,17 @@ else
     y2 = M*x2+Q;
 end
 return
+
+function SavePhotogram(fig, filename, iter, delay_time)
+drawnow
+frame      = getframe(fig); 
+im         = frame2im(frame); 
+[imind,cm] = rgb2ind(im,256); 
+if iter == 1 
+  imwrite(imind,cm,filename,'gif', 'Loopcount',inf, 'DelayTime', delay_time); 
+else 
+  imwrite(imind,cm,filename,'gif','WriteMode','append', 'DelayTime', delay_time); 
+end 
+return
+
+
