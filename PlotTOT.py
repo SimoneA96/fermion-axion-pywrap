@@ -87,7 +87,7 @@ for file in glob.glob(path_mass+"out_equalmass_*.txt"):
     if mass != 1.58608 or mass !=1.40618 :
         ax.plot(rhom,phim,linestyle='dashed', linewidth = 3,  label = r'$M_T$ = '+str(mass)[:5])
 
-data_black=np.loadtxt('/home/davide/fermion-axion-pywrap/blackline/out/blackline_fa-0.02.txt')
+data_black=np.loadtxt(path_home+'/blackline/out/blackline_fa-'+sys.argv[1]+'.txt')
 ax.plot(data_black[:,0],data_black[:,1],'k',linestyle='solid', linewidth = 4)
     
 ax.legend(loc = 'lower right',frameon = True, fontsize = 13)
