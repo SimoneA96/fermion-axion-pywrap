@@ -85,16 +85,20 @@ for file in glob.glob(path_mass+"out_equalmass_*.txt"):
     phim = data[:,0]
     rhom = data[:,1]
     if mass != 1.58608 or mass !=1.40618 :
-        ax.plot(rhom,phim,linestyle='dashed', linewidth = 3,  label = r'$M_T$ = '+str(mass)[:4])
+        ax.plot(rhom,phim,linestyle='dashed', linewidth = 3,  label = r'$M_T$ = '+str(mass)[:5])
+
+data_black=np.loadtxt('/home/davide/fermion-axion-pywrap/blackline/out/blackline_fa-0.02.txt')
+ax.plot(data_black[:,0],data_black[:,1],'k',linestyle='solid', linewidth = 4)
     
 ax.legend(loc = 'lower right',frameon = True, fontsize = 13)
 ax.set_xlabel(r'$\rho_c/\mu^2$', fontsize = 16)
 ax.set_ylabel(r'$\phi_c$', fontsize = 16)
-ax.set_ylim(top = 0.1)
+ax.set_ylim(top = 0.2)
+#ax.set_xlim(right = 0.010)
 ax.set_title(r'$f_a = $'+str(fa), fontsize = 20, fontweight= 'bold')
 ax.tick_params(axis = 'both', labelsize = 15)
 cbar.ax.tick_params(labelsize=15)
 
-fig.savefig(path_plots+'PlotMassCurves_fa'+str(fa)+'.png', format = 'png', dpi = 400)
+fig.savefig(path_plots+'PlotMassCurves_fa_'+str(fa)+'.png', format = 'png', dpi = 400)
  
 #===========================================================

@@ -53,16 +53,16 @@ int main(int argc, char *argv[]){
     double x_init, y_init, ds, L, tol;
     int maxpoints, verbose;
     char fname[]="out_equalmass.txt";
-    char start_direction[]="up";
+    char start_direction[]="right";
     
-    x_init          = 0.0023;
-    y_init          = 0.000;
-    ds              = 1e-2;  // used for initial step and for squares
+    x_init          = 0.000;
+    y_init          = 0.16;
+    ds              = 1e-3;  // used for initial step and for squares
     xmin            = 0;
     xmax            = 0.008;
     ymin            = 0;
     ymax            = 0.42;
-    tol             = 1e-4; // tolerance in bisetion
+    tol             = 1e-6; // tolerance in bisetion
     maxpoints       = 100;   // maximum number of points for the level curve 
 
     // Find the level curve and prin the ouput on "output.txt"

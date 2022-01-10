@@ -120,6 +120,7 @@ int main(int argc, char *argv[]){
 	ofstream infofile;
 	ofstream bospotential_file;
 	ofstream existence_plot;
+  ofstream blackline;
 
 	fa_str = to_string(fa_axion);
 
@@ -339,6 +340,7 @@ int main(int argc, char *argv[]){
     evolutionfile.open(folder + "/Mixed_"+phi_str +"_"+ rho_str +"_"+ fa_str+".dat");
     bospotential_file.open(folder + "/bospotential"+tmp+".txt");
 		evolutionfile<<delta_r*10<<" "<<omega<<endl;
+    blackline.open(folder + "/blackline"+tmp+".txt");
 
 		//change number here, depending on how many models for each rho 
 		if(j%input_num==1){
@@ -389,7 +391,8 @@ int main(int argc, char *argv[]){
 			r+=delta_r;
 		}
 
-		existence_plot<<var[2][0]<<" "<<omega<<" "<<((R)/2)* (1-1/pow(var[0][num-1],2))<<" "<< pow(var[4][0]/KK,1/polind)<<endl;
+		existence_plot<<var[2][0]<<" "<<omega<<" "<<((R)/2)* (1-1/pow(var[0][num-1],2))<<" "<< pow(var[4][0]/KK,1/polind)<<endl;  
+    blackline << numbos << " " << numfer << " " << endl;
 		rfile << endl;
 		solfile << endl;
 		solfile1 << endl;
@@ -444,6 +447,7 @@ int main(int argc, char *argv[]){
 	  evolutionfile.close();
 	  infofile.close();
 	  bospotential_file.close();
+    blackline.close();
 		if(j%input_num==0){
       existence_plot.close();
     }

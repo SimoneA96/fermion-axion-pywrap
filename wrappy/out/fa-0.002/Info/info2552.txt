@@ -1,0 +1,6 @@
+mass= nannumbos: nan numfer: nan omega: nan r99bos: 3.258 r99fer: 0.006 r99tot: 3.438
+ Nb/Nf: nan Eb/Ef: nan
+mass_bos= nan mass_fer= nan
+compactness= nan
+compactness_boson= nan
+E_binding= nan

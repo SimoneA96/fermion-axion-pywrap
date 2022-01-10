@@ -54,7 +54,7 @@ using namespace std;
 
 #define KK 100.0                          // constants related with the politropic eos for the
 #define m_ax 1.0                          // fermion part (KK and polind) and the mass (m) of
-#define fa_axion 10.                      // the scalar field and the decay constant (fa) for
+#define fa_axion 0.02                      // the scalar field and the decay constant (fa) for
 #define polind 2.0                        // the axion potential
 #define R_inf 100.0
 #define num 10000                         // number of points for the integration

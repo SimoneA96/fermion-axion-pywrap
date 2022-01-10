@@ -1,0 +1,561 @@
+0 0 1
+mass= 0 numbos: 0 numfer: 0 omega: 1 r99bos: 0 r99fer: 0 r99tot: 0.012
+ Nb/Nf: -nan Eb/Ef: -nan
+mass_bos= 0 mass_fer= 0
+compactness= 0
+compactness_boson= -nan
+E_binding= 0
+0.005354 0 1.01706592
+84.288
+mass= 0.301701525 numbos: 0.151678047 numfer: 0 omega: 0.98252008 r99bos: 28.764 r99fer: 0 r99tot: 28.812
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.15262676 mass_fer= 0
+compactness= 0.0104713843
+compactness_boson= 0.005306173
+E_binding= 0.150023478
+0.010709 0 1.03347132
+mass= 0.384229648 numbos: 0.193978441 numfer: 0 omega: 0.966941305 r99bos: 19.92 r99fer: 0 r99tot: 19.98
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.1964304 mass_fer= 0
+compactness= 0.0192307131
+compactness_boson= 0.00986096385
+E_binding= 0.190251207
+0.016063 0 1.04929507
+mass= 0.426708223 numbos: 0.216090736 numfer: 0 omega: 0.952921034 r99bos: 15.966 r99fer: 0 r99tot: 16.032
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.220231709 mass_fer= 0
+compactness= 0.0266160319
+compactness_boson= 0.0137937936
+E_binding= 0.210617487
+0.021418 0 1.06459572
+mass= 0.449341159 numbos: 0.2280388 numfer: 0 omega: 0.940208029 r99bos: 13.596 r99fer: 0 r99tot: 13.674
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.233929527 mass_fer= 0
+compactness= 0.0328609886
+compactness_boson= 0.0172057611
+E_binding= 0.221302359
+0.026772 0 1.07938293
+mass= 0.46024001 numbos: 0.233866182 numfer: 0 omega: 0.92864504 r99bos: 11.976 r99fer: 0 r99tot: 12.06
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.241501682 mass_fer= 0
+compactness= 0.0381625216
+compactness_boson= 0.0201654711
+E_binding= 0.226373829
+0.032127 0 1.09362872
+mass= 0.463464171 numbos: 0.235608927 numfer: 0 omega: 0.918145253 r99bos: 10.788 r99fer: 0 r99tot: 10.884
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.244943016 mass_fer= 0
+compactness= 0.0425821547
+compactness_boson= 0.0227051368
+E_binding= 0.227855245
+0.037481 0 1.10722566
+mass= 0.461190483 numbos: 0.234361952 numfer: 0 omega: 0.908718034 r99bos: 9.882 r99fer: 0 r99tot: 9.978
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.245313194 mass_fer= 0
+compactness= 0.0462207339
+compactness_boson= 0.0248242455
+E_binding= 0.226828531
+0.042835 0 1.11997842
+mass= 0.454564332 numbos: 0.230697323 numfer: 0 omega: 0.900475178 r99bos: 9.168 r99fer: 0 r99tot: 9.27
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.243147685 mass_fer= 0
+compactness= 0.049036066
+compactness_boson= 0.0265213444
+E_binding= 0.223867009
+0.04819 0 1.13157319
+mass= 0.444113984 numbos: 0.224870405 numfer: 0 omega: 0.893659315 r99bos: 8.61 r99fer: 0 r99tot: 8.712
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.23865701 mass_fer= 0
+compactness= 0.0509772709
+compactness_boson= 0.0277185842
+E_binding= 0.219243579
+0.053544 0 1.14161274
+mass= 0.430103191 numbos: 0.21700686 numfer: 0 omega: 0.888613703 r99bos: 8.178 r99fer: 0 r99tot: 8.286
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.23191617 mass_fer= 0
+compactness= 0.0519072159
+compactness_boson= 0.0283585437
+E_binding= 0.213096331
+0.058899 0 1.14986464
+mass= 0.412935194 numbos: 0.207327918 numfer: 0 omega: 0.885539506 r99bos: 7.854 r99fer: 0 r99tot: 7.962
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223120365 mass_fer= 0
+compactness= 0.0518632497
+compactness_boson= 0.0284085007
+E_binding= 0.205607276
+0.064253 0 1.15666704
+mass= 0.393408983 numbos: 0.196292065 numfer: 0 omega: 0.883994832 r99bos: 7.602 r99fer: 0 r99tot: 7.71
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.212784991 mass_fer= 0
+compactness= 0.0510258085
+compactness_boson= 0.0279906591
+E_binding= 0.197116918
+0.069608 0 1.16293305
+mass= 0.372558993 numbos: 0.184490489 numfer: 0 omega: 0.882593356 r99bos: 7.362 r99fer: 0 r99tot: 7.464
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.201659949 mass_fer= 0
+compactness= 0.0499141202
+compactness_boson= 0.0273920061
+E_binding= 0.188068504
+0.074962 0 1.16939581
+mass= 0.352153159 numbos: 0.172912647 numfer: 0 omega: 0.87938429 r99bos: 7.05 r99fer: 0 r99tot: 7.152
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.190904174 mass_fer= 0
+compactness= 0.0492384171
+compactness_boson= 0.0270786063
+E_binding= 0.179240512
+0.080316 0 1.17617307
+mass= 0.334952952 numbos: 0.163100414 numfer: 0 omega: 0.87250968 r99bos: 6.654 r99fer: 0 r99tot: 6.756
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.182147783 mass_fer= 0
+compactness= 0.0495785898
+compactness_boson= 0.0273741784
+E_binding= 0.171852538
+0.085671 0 1.18302905
+mass= 0.323531786 numbos: 0.156518614 numfer: 0 omega: 0.860773827 r99bos: 6.192 r99fer: 0 r99tot: 6.3
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.176846982 mass_fer= 0
+compactness= 0.0513542517
+compactness_boson= 0.0285605591
+E_binding= 0.167013171
+0.091025 0 1.18982425
+mass= 0.319104394 numbos: 0.153929481 numfer: 0 omega: 0.843923352 r99bos: 5.718 r99fer: 0 r99tot: 5.838
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.175689757 mass_fer= 0
+compactness= 0.0546598825
+compactness_boson= 0.0307257358
+E_binding= 0.165174913
+0.09638 0 1.1968043
+mass= 0.32147809 numbos: 0.155361608 numfer: 0 omega: 0.822515486 r99bos: 5.268 r99fer: 0 r99tot: 5.412
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.178605698 mass_fer= 0
+compactness= 0.0594009775
+compactness_boson= 0.033903891
+E_binding= 0.166116482
+0.101734 0 1.20463257
+mass= 0.329669586 numbos: 0.160424819 numfer: 0 omega: 0.797614794 r99bos: 4.884 r99fer: 0 r99tot: 5.046
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.185106553 mass_fer= 0
+compactness= 0.065332855
+compactness_boson= 0.0379006047
+E_binding= 0.169244768
+0.107089 0 1.21430852
+mass= 0.342436609 numbos: 0.168573354 numfer: 0 omega: 0.770453126 r99bos: 4.56 r99fer: 0 r99tot: 4.746
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.194567815 mass_fer= 0
+compactness= 0.0721526779
+compactness_boson= 0.0426683806
+E_binding= 0.173863256
+0.112443 0 1.22703864
+mass= 0.358501291 numbos: 0.179199232 numfer: 0 omega: 0.74227589 r99bos: 4.29 r99fer: 0 r99tot: 4.5
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.206331754 mass_fer= 0
+compactness= 0.0796669536
+compactness_boson= 0.0480959799
+E_binding= 0.179302059
+0.117797 0 1.24415385
+mass= 0.376607744 numbos: 0.19163634 numfer: 0 omega: 0.714219362 r99bos: 4.068 r99fer: 0 r99tot: 4.302
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.219725053 mass_fer= 0
+compactness= 0.0875424787
+compactness_boson= 0.0540130415
+E_binding= 0.184971404
+0.123152 0 1.26703201
+mass= 0.39550109 numbos: 0.205121623 numfer: 0 omega: 0.687289356 r99bos: 3.888 r99fer: 0 r99tot: 4.146
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.234030051 mass_fer= 0
+compactness= 0.095393413
+compactness_boson= 0.0601929143
+E_binding= 0.190379467
+0.128506 0 1.29700802
+mass= 0.413921021 numbos: 0.218772692 numfer: 0 omega: 0.662353729 r99bos: 3.738 r99fer: 0 r99tot: 4.008
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.248466462 mass_fer= 0
+compactness= 0.103273708
+compactness_boson= 0.0664704286
+E_binding= 0.195148329
+0.133861 0 1.33533095
+mass= 0.430685006 numbos: 0.231645209 numfer: 0 omega: 0.640083509 r99bos: 3.606 r99fer: 0 r99tot: 3.9
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.262240443 mass_fer= 0
+compactness= 0.110432053
+compactness_boson= 0.072723362
+E_binding= 0.199039797
+0.139215 0 1.38305155
+mass= 0.444765815 numbos: 0.242810686 numfer: 0 omega: 0.620965092 r99bos: 3.498 r99fer: 0 r99tot: 3.798
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.274594194 mass_fer= 0
+compactness= 0.11710527
+compactness_boson= 0.0785003414
+E_binding= 0.201955129
+0.14457 0 1.4410464
+mass= 0.45542632 numbos: 0.251502644 numfer: 0 omega: 0.605255759 r99bos: 3.402 r99fer: 0 r99tot: 3.714
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.284914542 mass_fer= 0
+compactness= 0.122624211
+compactness_boson= 0.0837491306
+E_binding= 0.203923676
+0.149924 0 1.50996105
+mass= 0.462268238 numbos: 0.257209829 numfer: 0 omega: 0.593024778 r99bos: 3.312 r99fer: 0 r99tot: 3.63
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.292786915 mass_fer= 0
+compactness= 0.127346622
+compactness_boson= 0.0884018465
+E_binding= 0.205058409
+0.155278 0 1.59034029
+mass= 0.465247191 numbos: 0.259737576 numfer: 0 omega: 0.584169191 r99bos: 3.24 r99fer: 0 r99tot: 3.558
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.298037434 mass_fer= 0
+compactness= 0.130760874
+compactness_boson= 0.0919868625
+E_binding= 0.205509615
+0.160633 0 1.68268222
+mass= 0.464601124 numbos: 0.259179234 numfer: 0 omega: 0.5784773 r99bos: 3.168 r99fer: 0 r99tot: 3.492
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.300704423 mass_fer= 0
+compactness= 0.133047286
+compactness_boson= 0.0949193255
+E_binding= 0.20542189
+0.165987 0 1.78743671
+mass= 0.460761172 numbos: 0.25584982 numfer: 0 omega: 0.575679638 r99bos: 3.108 r99fer: 0 r99tot: 3.426
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.300987158 mass_fer= 0
+compactness= 0.134489542
+compactness_boson= 0.0968427149
+E_binding= 0.204911353
+0.171342 0 1.90514251
+mass= 0.454260005 numbos: 0.25020027 numfer: 0 omega: 0.575480666 r99bos: 3.054 r99fer: 0 r99tot: 3.372
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.299188618 mass_fer= 0
+compactness= 0.134715304
+compactness_boson= 0.0979661487
+E_binding= 0.204059735
+0.176696 0 2.0362116
+mass= 0.445670668 numbos: 0.242749281 numfer: 0 omega: 0.577583466 r99bos: 3.006 r99fer: 0 r99tot: 3.318
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.295664672 mass_fer= 0
+compactness= 0.134319068
+compactness_boson= 0.0983581742
+E_binding= 0.202921386
+0.182051 0 2.18102782
+mass= 0.435554074 numbos: 0.23402092 numfer: 0 omega: 0.581694197 r99bos: 2.964 r99fer: 0 r99tot: 3.27
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.290786216 mass_fer= 0
+compactness= 0.133196965
+compactness_boson= 0.0981060109
+E_binding= 0.201533154
+0.187405 0 2.34000271
+mass= 0.424424549 numbos: 0.224500499 numfer: 0 omega: 0.587526078 r99bos: 2.934 r99fer: 0 r99tot: 3.234
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.284910818 mass_fer= 0
+compactness= 0.131238265
+compactness_boson= 0.0971066184
+E_binding= 0.19992405
+0.192759 0 2.51486602
+mass= 0.412658458 numbos: 0.21454759 numfer: 0 omega: 0.594844926 r99bos: 2.91 r99fer: 0 r99tot: 3.198
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.278326353 mass_fer= 0
+compactness= 0.129036416
+compactness_boson= 0.0956447948
+E_binding= 0.198110869
+0.198114 0 2.70929153
+mass= 0.400485128 numbos: 0.204387502 numfer: 0 omega: 0.603503648 r99bos: 2.892 r99fer: 0 r99tot: 3.174
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.271232768 mass_fer= 0
+compactness= 0.126176789
+compactness_boson= 0.0937872641
+E_binding= 0.196097626
+0.203468 0 2.92731257
+mass= 0.388120009 numbos: 0.194224445 numfer: 0 omega: 0.613375286 r99bos: 2.886 r99fer: 0 r99tot: 3.156
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.263808532 mass_fer= 0
+compactness= 0.122978457
+compactness_boson= 0.0914097476
+E_binding= 0.193895564
+0.208823 0 3.17223069
+mass= 0.375823347 numbos: 0.18428733 numfer: 0 omega: 0.624290292 r99bos: 2.892 r99fer: 0 r99tot: 3.144
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.256246938 mass_fer= 0
+compactness= 0.119536688
+compactness_boson= 0.088605442
+E_binding= 0.191536017
+0.214177 0 3.44627835
+mass= 0.363890044 numbos: 0.174816977 numfer: 0 omega: 0.636006671 r99bos: 2.898 r99fer: 0 r99tot: 3.144
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.248757161 mass_fer= 0
+compactness= 0.115741108
+compactness_boson= 0.0858375297
+E_binding= 0.189073067
+0.219532 0 3.75132046
+mass= 0.352590605 numbos: 0.166016873 numfer: 0 omega: 0.64823761 r99bos: 2.922 r99fer: 0 r99tot: 3.15
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.241532496 mass_fer= 0
+compactness= 0.111933525
+compactness_boson= 0.0826599919
+E_binding= 0.186573732
+0.224886 0 4.08866416
+mass= 0.342164818 numbos: 0.158050094 numfer: 0 omega: 0.660651047 r99bos: 2.952 r99fer: 0 r99tot: 3.162
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.234747663 mass_fer= 0
+compactness= 0.108211517
+compactness_boson= 0.0795215662
+E_binding= 0.184114724
+0.230241 0 4.45965186
+mass= 0.332793643 numbos: 0.151021719 numfer: 0 omega: 0.6729073 r99bos: 2.994 r99fer: 0 r99tot: 3.186
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.228540477 mass_fer= 0
+compactness= 0.104455004
+compactness_boson= 0.0763328246
+E_binding= 0.181771924
+0.235595 0 4.86527576
+mass= 0.324610387 numbos: 0.144992906 numfer: 0 omega: 0.684662746 r99bos: 3.042 r99fer: 0 r99tot: 3.222
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223018199 mass_fer= 0
+compactness= 0.100748103
+compactness_boson= 0.0733130174
+E_binding= 0.17961748
+0.240949 0 5.30678286
+mass= 0.317688295 numbos: 0.139977161 numfer: 0 omega: 0.695608098 r99bos: 3.09 r99fer: 0 r99tot: 3.258
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.218248503 mass_fer= 0
+compactness= 0.0975102194
+compactness_boson= 0.0706305834
+E_binding= 0.177711134
+0.246304 0 5.78565549
+mass= 0.312050428 numbos: 0.135952709 numfer: 0 omega: 0.705480523 r99bos: 3.15 r99fer: 0 r99tot: 3.3
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.214265288 mass_fer= 0
+compactness= 0.0945607356
+compactness_boson= 0.0680207263
+E_binding= 0.176097719
+0.251658 0 6.30348656
+mass= 0.307677731 numbos: 0.132871993 numfer: 0 omega: 0.714073279 r99bos: 3.204 r99fer: 0 r99tot: 3.348
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.211073843 mass_fer= 0
+compactness= 0.091898964
+compactness_boson= 0.0658782281
+E_binding= 0.174805738
+0.257013 0 6.86280128
+mass= 0.304509836 numbos: 0.130664633 numfer: 0 omega: 0.721255753 r99bos: 3.258 r99fer: 0 r99tot: 3.396
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.208650812 mass_fer= 0
+compactness= 0.0896672072
+compactness_boson= 0.0640426064
+E_binding= 0.173845203
+0.262367 0 7.46645175
+mass= 0.302460077 numbos: 0.129249073 numfer: 0 omega: 0.726961467 r99bos: 3.312 r99fer: 0 r99tot: 3.438
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.206954438 mass_fer= 0
+compactness= 0.0879755895
+compactness_boson= 0.0624862434
+E_binding= 0.173211004
+0.267722 0 8.11861404
+mass= 0.301419178 numbos: 0.128535091 numfer: 0 omega: 0.731193575 r99bos: 3.354 r99fer: 0 r99tot: 3.474
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.20592641 mass_fer= 0
+compactness= 0.0867642999
+compactness_boson= 0.06139726
+E_binding= 0.172884087
+0.273076 0 8.82403252
+mass= 0.301266194 numbos: 0.128430586 numfer: 0 omega: 0.73400717 r99bos: 3.39 r99fer: 0 r99tot: 3.51
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.205499455 mass_fer= 0
+compactness= 0.0858308246
+compactness_boson= 0.0606193084
+E_binding= 0.172835609
+0.27843 0 9.58899832
+mass= 0.301873193 numbos: 0.128843587 numfer: 0 omega: 0.735504375 r99bos: 3.414 r99fer: 0 r99tot: 3.54
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.205599844 mass_fer= 0
+compactness= 0.0852749134
+compactness_boson= 0.0602225672
+E_binding= 0.173029606
+0.283785 0 10.4211935
+mass= 0.303111426 numbos: 0.129685133 numfer: 0 omega: 0.73581952 r99bos: 3.438 r99fer: 0 r99tot: 3.558
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.206151534 mass_fer= 0
+compactness= 0.0851915193
+compactness_boson= 0.0599626335
+E_binding= 0.173426293
+0.289139 0 11.3293569
+mass= 0.304853393 numbos: 0.130869394 numfer: 0 omega: 0.735109569 r99bos: 3.45 r99fer: 0 r99tot: 3.57
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.207077555 mass_fer= 0
+compactness= 0.0853931073
+compactness_boson= 0.0600224796
+E_binding= 0.173983999
+0.294494 0 12.3246266
+mass= 0.306976841 numbos: 0.132315265 numfer: 0 omega: 0.733544924 r99bos: 3.45 r99fer: 0 r99tot: 3.582
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.208302254 mass_fer= 0
+compactness= 0.085699844
+compactness_boson= 0.060377465
+E_binding= 0.174661576
+0.299848 0 13.419441
+mass= 0.309363587 numbos: 0.133944667 numfer: 0 omega: 0.731302612 r99bos: 3.45 r99fer: 0 r99tot: 3.582
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.209750844 mass_fer= 0
+compactness= 0.0863661605
+compactness_boson= 0.0607973462
+E_binding= 0.17541892
+0.305203 0 14.6293738
+mass= 0.311903564 numbos: 0.135684628 numfer: 0 omega: 0.72855763 r99bos: 3.444 r99fer: 0 r99tot: 3.576
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.211351846 mass_fer= 0
+compactness= 0.0872213546
+compactness_boson= 0.0613681319
+E_binding= 0.176218936
+0.310557 0 15.9719352
+mass= 0.314492374 numbos: 0.13746517 numfer: 0 omega: 0.725480692 r99bos: 3.432 r99fer: 0 r99tot: 3.57
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.213035753 mass_fer= 0
+compactness= 0.088093102
+compactness_boson= 0.0620733545
+E_binding= 0.177027204
+0.315911 0 17.4687725
+mass= 0.317035863 numbos: 0.139222219 numfer: 0 omega: 0.722230191 r99bos: 3.42 r99fer: 0 r99tot: 3.564
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.21473807 mass_fer= 0
+compactness= 0.0889550681
+compactness_boson= 0.0627889095
+E_binding= 0.177813644
+0.321266 0 19.146051
+mass= 0.319450129 numbos: 0.140897597 numfer: 0 omega: 0.718949791 r99bos: 3.402 r99fer: 0 r99tot: 3.552
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.216399629 mass_fer= 0
+compactness= 0.089935284
+compactness_boson= 0.0636095323
+E_binding= 0.178552531
+0.32662 0 21.0343905
+mass= 0.321661288 numbos: 0.14243899 numfer: 0 omega: 0.715768105 r99bos: 3.384 r99fer: 0 r99tot: 3.54
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.217966613 mass_fer= 0
+compactness= 0.0908647707
+compactness_boson= 0.0644109377
+E_binding= 0.179222298
+0.331975 0 23.1724618
+mass= 0.323609507 numbos: 0.143803004 numfer: 0 omega: 0.712793138 r99bos: 3.372 r99fer: 0 r99tot: 3.528
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.219393622 mass_fer= 0
+compactness= 0.0917260506
+compactness_boson= 0.0650633517
+E_binding= 0.179806502
+0.337329 0 25.6062381
+mass= 0.325246757 numbos: 0.144953936 numfer: 0 omega: 0.710116026 r99bos: 3.354 r99fer: 0 r99tot: 3.516
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.220642371 mass_fer= 0
+compactness= 0.0925047658
+compactness_boson= 0.0657848454
+E_binding= 0.180292821
+0.342684 0 28.3954424
+mass= 0.326540221 numbos: 0.14586651 numfer: 0 omega: 0.707806507 r99bos: 3.336 r99fer: 0 r99tot: 3.504
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.221684528 mass_fer= 0
+compactness= 0.0931907024
+compactness_boson= 0.0664521966
+E_binding= 0.180673712
+0.348038 0 31.6147252
+mass= 0.327469611 numbos: 0.146524327 numfer: 0 omega: 0.705917681 r99bos: 3.324 r99fer: 0 r99tot: 3.492
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.222500098 mass_fer= 0
+compactness= 0.0937770938
+compactness_boson= 0.0669374543
+E_binding= 0.180945285
+0.353392 0 35.3648106
+mass= 0.328027917 numbos: 0.146920663 numfer: 0 omega: 0.704484591 r99bos: 3.312 r99fer: 0 r99tot: 3.48
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223078575 mass_fer= 0
+compactness= 0.0942608958
+compactness_boson= 0.0673546421
+E_binding= 0.181107254
+0.358747 0 39.7840384
+mass= 0.328218472 numbos: 0.147056582 numfer: 0 omega: 0.703528562 r99bos: 3.306 r99fer: 0 r99tot: 3.474
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223417334 mass_fer= 0
+compactness= 0.094478547
+compactness_boson= 0.0675793508
+E_binding= 0.18116189
+0.364101 0 45.0672841
+mass= 0.328052451 numbos: 0.146939252 numfer: 0 omega: 0.703061051 r99bos: 3.294 r99fer: 0 r99tot: 3.462
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223520367 mass_fer= 0
+compactness= 0.0947580735
+compactness_boson= 0.0678568206
+E_binding= 0.181113198
+0.369456 0 51.5114481
+mass= 0.32754541 numbos: 0.14657952 numfer: 0 omega: 0.703087769 r99bos: 3.288 r99fer: 0 r99tot: 3.462
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223396956 mass_fer= 0
+compactness= 0.0946116148
+compactness_boson= 0.0679431131
+E_binding= 0.18096589
+0.37481 0 59.5773001
+mass= 0.326712978 numbos: 0.145988813 numfer: 0 omega: 0.703617259 r99bos: 3.288 r99fer: 0 r99tot: 3.456
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.223059452 mass_fer= 0
+compactness= 0.0945350053
+compactness_boson= 0.0678404661
+E_binding= 0.180724165
+0.380165 0 69.9894982
+mass= 0.325564335 numbos: 0.145174462 numfer: 0 omega: 0.704674179 r99bos: 3.288 r99fer: 0 r99tot: 3.456
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.222520447 mass_fer= 0
+compactness= 0.0942026432
+compactness_boson= 0.067676535
+E_binding= 0.180389873
+0.385519 0 83.4626145
+mass= 0.324108028 numbos: 0.14414369 numfer: 0 omega: 0.706294545 r99bos: 3.294 r99fer: 0 r99tot: 3.456
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.221797492 mass_fer= 0
+compactness= 0.0937812581
+compactness_boson= 0.0673337864
+E_binding= 0.179964338
+0.390873 0 97.8678519
+mass= 0.322510105 numbos: 0.143014911 numfer: 0 omega: 0.708244656 r99bos: 3.3 r99fer: 0 r99tot: 3.462
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.221003203 mass_fer= 0
+compactness= 0.0931571649
+compactness_boson= 0.0669706676
+E_binding= 0.179495193
+0.396228 0 107.534205
+mass= 0.321236269 numbos: 0.142116576 numfer: 0 omega: 0.709787532 r99bos: 3.306 r99fer: 0 r99tot: 3.462
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.220393794 mass_fer= 0
+compactness= 0.092789217
+compactness_boson= 0.0666647895
+E_binding= 0.179119693
+0.401582 0 112.973023
+mass= 0.320298071 numbos: 0.141455615 numfer: 0 omega: 0.710876025 r99bos: 3.306 r99fer: 0 r99tot: 3.462
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.219958649 mass_fer= 0
+compactness= 0.092518218
+compactness_boson= 0.0665331665
+E_binding= 0.178842456
+0.406937 0 116.301305
+mass= 0.319511483 numbos: 0.140902061 numfer: 0 omega: 0.71176334 r99bos: 3.312 r99fer: 0 r99tot: 3.468
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.219595133 mass_fer= 0
+compactness= 0.0921313388
+compactness_boson= 0.0663028782
+E_binding= 0.178609422
+0.412291 0 118.496841
+mass= 0.318780019 numbos: 0.14038835 numfer: 0 omega: 0.71258807 r99bos: 3.312 r99fer: 0 r99tot: 3.468
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.219253594 mass_fer= 0
+compactness= 0.0919204208
+compactness_boson= 0.0661997566
+E_binding= 0.178391669
+0.417646 0 120.017124
+mass= 0.318052563 numbos: 0.13987916 numfer: 0 omega: 0.713430753 r99bos: 3.312 r99fer: 0 r99tot: 3.468
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.218908555 mass_fer= 0
+compactness= 0.0917106584
+compactness_boson= 0.0660955783
+E_binding= 0.178173403
+0.423 0 121.117131
+mass= 0.317289 numbos: 0.139347178 numfer: 0 omega: 0.714361673 r99bos: 3.318 r99fer: 0 r99tot: 3.468
+ Nb/Nf: inf Eb/Ef: inf
+mass_bos= 0.218538611 mass_fer= 0
+compactness= 0.0914904845
+compactness_boson= 0.0658645604
+E_binding= 0.177941822

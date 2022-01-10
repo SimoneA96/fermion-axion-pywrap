@@ -1,0 +1,20 @@
+/*
+ *   Copyright (c) 2021-2022 Saeed Fakhry (the main author of this code),
+ *   Simone Albanesi, Fabrizio di Giovanni, Davide Guerra, Miquel Miravet
+ *
+ *   This file is part of FAS (Fermion-Axion Star program).
+ *
+ *   FAS is free software (we accept a coffee or a beer if you want); 
+ *   you can redistribute it and/or modify it under the terms of the 
+ *   people that develope it, otherwise ciao ciao.
+ *
+ *   Here there are the funcions used by Shoot.cpp and Solve.cpp in order
+ *   to build the 2-D existence plot of a fermion-axion star. 
+ *
+ */
+
+/*
+ *   COMPILE: g++ -o Shoot Shoot.cpp root_shoot.cpp
+ *            g++ -o Solve Solve.cpp root_shoot.cpp
+ *
+ */

@@ -1,0 +1,6 @@
+mass= 0numbos: 0 numfer: 0 omega: 1 r99bos: 0 r99fer: 0 r99tot: 0.012
+ Nb/Nf: -nan Eb/Ef: -nan
+mass_bos= 0 mass_fer= 0
+compactness= 0
+compactness_boson= -nan
+E_binding= 0

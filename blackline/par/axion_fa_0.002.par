@@ -1,0 +1,24 @@
+Ng              = 10000     
+tol             = -10 
+phi0c_N         = 80     # values of phi0c to consider (if N<=1, then phi0c=phi0c_start) 
+phi0c_start     = 0.000       
+phi0c_end       = 0.423 
+rho0c_N         = 80       # values of rho0c to consider (if N<=1, then rho0c=rho0c_start) 
+rho0c_start     = 0.000
+rho0c_end       = 0.008
+r_max           = 60      # r_max used if phi0c>=0.01
+r_max_low_phi0c = 120     # r_max used if phi0c<0.01
+KK              = 100
+polind          = 2.
+fa_axion        = 0.02    # ignored if give_axion_exp==True
+fa_axion_exp    = -1.7
+give_axion_exp  = False    # if True, fa_axion_exp=10**fa_axion_exp
+m               = 1.0
+Lambda          = 0.
+zoom_phi_points = []      # more models around some values of phi0c (e.g. [0.1,0.3])
+zoom_phi_width  = 0.02    # zoom in the interval [point-width, point+width] 
+zoom_phi_value  = 4       # number of extra models to consider in the aforementioned interval
+zoom_rho_points = []      # similar to zoom_phi_points but for the central density
+zoom_rho_width  = 0.0005
+zoom_rho_value  = 4
+only_input_txt  = False   # produce only the Input.txt file, then exit

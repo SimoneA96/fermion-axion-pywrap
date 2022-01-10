@@ -326,6 +326,20 @@ os.system('mv '+outfiles_dir+'/solr* '+outfiles_dir+'/Solr')
 
 #--------------------------------------------------------------
 # do a simple plot in the case of axion stars
+'''
+import numpy as np
+import pylab as pl
+X    = np.loadtxt('existence_plot_neutron.txt')
+phic = X[:,4]
+Mbar = X[:,2]
+f, ax = pl.subplots()
+pl.plot(phic, Mbar)
+pl.grid(True)
+ax.set_xlim(0,0.008)
+ax.yaxis.set_visible(False)
+ax.xaxis.set_visible(False)
+pl.savefig('existence_plot_ns.png',dpi=400)
+'''
 #--------------------------------------------------------------
 if rho0c_N==1:
     X    = np.loadtxt(outfiles_dir+'/existence_plot{:.6f}'.format(rho0c)+'.txt')

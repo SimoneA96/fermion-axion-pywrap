@@ -41,7 +41,7 @@ plt.xlabel(r'$\rho_c/\mu^2$')
 plt.ylabel(r'$\phi_c$')
 plt.grid(True)
 plt.xlim(0.0,0.008)
-plt.ylim(0.0,0.14)
+plt.ylim(0.0,0.30)
 plt.plot(data[:,1],data[:,0])
 plt.savefig('plot_rho_vs_phi.png', format='png', dpi=400)
 
@@ -53,5 +53,5 @@ with open('out_equalmass.txt', 'r') as fin:
 with open('out_equalmass_'+mass+'.txt', 'w') as fout:
     fout.writelines(data_file[1:])
     
-os.system('mv out_equalmass* '+path_exist+'/.')
+os.system('mv out_equalmass_* '+path_exist+'/.')
 os.system('mv plot_rho_vs_phi.png '+path_exist+'/.')

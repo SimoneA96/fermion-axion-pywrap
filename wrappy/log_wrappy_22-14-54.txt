@@ -1,0 +1,31 @@
+##################################################
+Starting at 22:14:54
+##################################################
+Ng               :  10000
+tol              :    -10
+phi0c_N          :      1
+phi0c_start      :    0.0
+phi0c_end        :    0.0
+rho0c_N          :    100
+rho0c_start      :    0.0
+rho0c_end        :  0.008
+r_max            :   60.0
+r_max_low_phi0c  :  120.0
+fa_axion_exp     :   -1.7
+give_axion_exp   :  False
+zoom_phi_points  :     []
+zoom_phi_width   :   0.02
+zoom_phi_value   :      4
+zoom_rho_points  :     []
+zoom_rho_width   : 0.0005
+zoom_rho_value   :      4
+only_input_txt   :  False
+--------------------------------------------------
+>> Compiling Shoot.cpp and Solve.cpp:
+KK               : 100
+polind           : 2.
+fa_axion         : 0.02
+m                : 1.0
+lambda           : 0.
+--------------------------------------------------
+./out/fa-0.02-neutron already exists! Exit
