@@ -184,7 +184,10 @@ int ode_int(long double phi0c, long double rho0c, long double omega, long double
     }
         
     //control for P not to become negative
-	  if(y[4]<=0) y[4]=0;
+	if(y[4]<=0) y[4]=0;
+
+	//Setting to 0 the pressure when it starts to do steps (for low values of P)
+    if (y[4] == var[4][n-1] || var[4][n-1]==0) y[4]=0;
 
 
     if (y[2] > Cutphi || y[2] < 0 || y[4]> CutP || diff[2]>0) {
