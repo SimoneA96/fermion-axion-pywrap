@@ -1,0 +1,56 @@
+REFERENCES:
+1) https://arxiv.org/pdf/1210.2299.pdf
+
+
+Compile with:
+
+g++ -o Shoot Shoot.cpp
+g++ -o Solve Solve.cpp
+
+
+Run first Shoot and then Solve:
+./Shoot data fa_exp
+./Solve data fa_exp
+
+where "data" is the name of the folder where you want to save the output, and fa_exp is the exponent for the parameter fa in the potential
+so that fa_axion = pow(10,fa_exp)
+
+
+The code Shoot takes an input file that is structure as follows:
+
+order numPoints
+numModels
+
+phi_c rho_c Rmax
+
+order: this is the tolerance for the bisection to find the frequency omega. 
+numPoints: number of radial points
+numModels: number of models
+
+phi_c: central value of phi for each model
+rho_c: central value of rho for each model
+Rmax: radius where the outer boundary is
+
+OUTPUTS:
+Shoot gives only one output called Output.txt which is used by Solve to create the models.
+
+Solve has many outputs; each model has its own outputs with a number at the end of the name (for example we have solphi1.txt, solphi2.txt which is the scalar field for model 1 and 2). The most important ones for our purpose are:
+
+solphi#.txt :
+   radial profile of the scalar field to be checked sometimes (see Note 1)
+
+solrho#.txt :
+   radial profile of the rest-mass density rho
+
+numbosfer.txt: 
+   in this file you have 6 columns which are:
+   phi_c rho_c numbos numfer r99bos r99fer
+
+   where numbos and numfer are the number of bosonic and fermionic particles, and r99bos and r99fer are the radius containing 99% of bosonic and fermionic particles respectively. 
+
+   This is important to find the stability regions. As explained in reference 1 (see page 5), to find the stable region we must look at line of equal mass in the existence plot and find extremal points for the number of bosons and fermions varying the parameters phi_c and rho_c.
+
+
+NOTES:
+1) Watch out that for low values of phi_c it might happen that the scalar field is very diluted, meaning that you might need to increase the value of Rmax. To be sure about the results, check with gnuplot the radial profile of phi, and see if it goes to zero fast enough or if at the outer boundary is not really close to zero. In this latter case you might want to increase Rmax for that model.
+
