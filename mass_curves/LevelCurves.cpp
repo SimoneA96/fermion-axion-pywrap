@@ -512,7 +512,7 @@ void FindLevelCurve(double x_init, double y_init, double ds, char *start_directi
     
     FILE *fp;
     fp=fopen(fname,"w");
-    fprintf(fp, "%.5f\n", K);
+ //   fprintf(fp, "%.5f\n", K);
     fprintf(fp, "-10 10000\n");
     fprintf(fp, " %d \n\n", iter);
     for(int i=0; i<iter; i++)
