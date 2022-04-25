@@ -1,7 +1,6 @@
 /*
  *   Name convention for vertices and sides. The starting direction is 
- *   perpendicular to the sides and pointing outside the square (e.g.
- *   start_direction=3 means --->, start_direction=1 means <---).
+ *   perpendicular to the sides and pointing outside the square
  *
  *                up
  *        2---------------3
@@ -53,7 +52,7 @@ int main(int argc, char *argv[]){
     double x_init, y_init, ds, tol;
     int maxpoints, verbose;
     char fname[]="out_equalmass.txt";
-    char start_direction[]="right";
+    char start_direction[]="right"; // "right", "up", "left" or "bottom"
     
     x_init          = 0.000;
     y_init          = 0.16;
@@ -62,11 +61,11 @@ int main(int argc, char *argv[]){
     xmax            = 0.008;
     ymin            = 0;
     ymax            = 0.42;
-    tol             = 1e-6;  // tolerance in bisetion
+    tol             = 1e-6;  // tolerance in bisection
     maxpoints       = 100;   // maximum number of points for the level curve 
 
-    // Find the level curve and print the ouput on "output.txt"
-    // shooting_omega is an f(rho,phi) function defined in shooting.h
+    // Find the level curve and print the output on "output.txt"
+    // shooting_omega is a function f(rho,phi) defined in shooting.h
     FindLevelCurve(x_init, y_init, ds, start_direction, tol, shooting_omega, xmin, xmax, ymin, ymax, fname, maxpoints);
     
     return 0;
