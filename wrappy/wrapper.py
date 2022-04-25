@@ -3,7 +3,7 @@
  *  for a Fermion-Axion star system in a 2 parameters space of solutions. 
  *  
  *
- *  LUNCH:
+ *  LAUNCH:
  *     python3 wrapper.py par/axion_fa_exp_-1d7.par fa-1.7 &
  *
  *
