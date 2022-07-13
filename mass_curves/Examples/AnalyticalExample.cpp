@@ -33,11 +33,8 @@ int main(int argc, char *argv[]){
     double x_init, y_init, ds, tol;
     int maxpoints, verbose;
     char fname[]="out_example.txt";
-    char start_direction[] = "left";
+    char start_direction[] = "up";
     
-    //x_init          = 0.5; // curve that ends on boundary
-    //y_init          = 0.5;
-    //start_direction = 1;
     x_init          = -0.6; // closed curve
     y_init          = -0.30103;
     ds              = 0.01;  // used for initial step and for squares
@@ -48,7 +45,7 @@ int main(int argc, char *argv[]){
     tol             = 1e-10; // tolerance in bisection
     maxpoints       = 500;   // maximum number of points for the level curve 
 
-    // Find the level curve and prin the ouput on "output.txt"
+    // Find the level curve and prin the ouput on "out_example.txt"
     FindLevelCurve(x_init, y_init, ds, start_direction, tol, MyFunction, xmin, xmax, ymin, ymax, fname, maxpoints);
     
     return 0;

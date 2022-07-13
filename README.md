@@ -9,20 +9,28 @@ Create the file `log_wrappy_${localtime}.py` where info on the run are printed. 
 saved in the directory `./out/fa-1.7`. If the directory already exists, the program stops.
 If axion-star (i.e. `rho0c=0`), then create also a M(phic) plot: `./out/fa-1.7/existence_plot.png`.
 
-For compiling the level-curver script, go in `scripts/`and then run:
+For compiling the level-curver script, go in `mass_curves/`and then run:
 ```bash
-g++ -o example ExampleLevelCurves.cpp LevelCurves.cpp
+ln -s Examples/AnalyticalExample.cpp
+g++ -o example AnalyticalExample.cpp LevelCurves.cpp
 ./example
 ```
+
 This will produce the file `out_example.txt` that contains a level curve.
+To plot the result, you can open gnuplot and use
+```bash
+plot 'out_example.txt' u 2:1 i 1 w l
+```
 You can check the result against the output of Matlab script `LevelCurves.m`:
 ```bash
-x0          = 0.3;
-y0          = 0.3;
-direction   = 3;
-ds          = 0.03;
-L           = 5-e3;
-maxpoints   = 200;
-onlysquares = 0;
-LevelCurves(x0, y0, direction, ds, L, maxpoints, onlysquares)
+x_init          = -0.6;
+y_init          = -0.30103;
+start_direction = 2;
+ds              = 0.01;
+maxpoints       = 100;
+onlySquares     = 0;
+saveGIF         = 0;
+LevelCurves(x_init, y_init, start_direction, ds, maxpoints, onlySquares, saveGIF)
 ```
+
+

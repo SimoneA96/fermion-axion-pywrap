@@ -512,11 +512,17 @@ void FindLevelCurve(double x_init, double y_init, double ds, char *start_directi
     
     FILE *fp;
     fp=fopen(fname,"w");
- //   fprintf(fp, "%.5f\n", K);
+    
+    // output for fermion-axion stars
     fprintf(fp, "-10 10000\n");
     fprintf(fp, " %d \n\n\n", iter);
     for(int i=0; i<iter; i++)
         fprintf(fp, "%23.15e \t %23.15e \t 100 \n", points[i][1], points[i][0]);
+    
+    // standard output 
+    //for(int i=0; i<iter; i++)
+    //    fprintf(fp, "%23.15e \t %23.15e \n", points[i][0], points[i][1]);
+    
     fclose(fp);
 
     cout<<"Ouput printed on '"<<fname<<"'"<<endl;
