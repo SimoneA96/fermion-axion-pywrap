@@ -1,6 +1,0 @@
-mass= 0.400505numbos: 0.17606 numfer: 0.00566328 omega: 0.786357 r99bos: 4.062 r99fer: 0.918 r99tot: 4.122
- Nb/Nf: 31.088 Eb/Ef: 37.4091
-mass_bos= 0.260775 mass_fer= 0.0069709
-compactness= 0.0971627
-compactness_boson= 0.0641987
-E_binding= 0.218782
